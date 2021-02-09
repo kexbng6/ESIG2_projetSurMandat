@@ -19,6 +19,8 @@ const hover = function (){
 
 
 function showPopup() {
+    if (document.getElementById('popup')== null){
+
     var divPop = document.createElement("div");
     var titre = document.createElement("p");
     titre.setAttribute('id', 'titre');
@@ -39,25 +41,32 @@ function showPopup() {
     var textClose = document.createTextNode("Fermer");
     btnClose.appendChild(textClose);
     btnClose.setAttribute('id','close');
+
     divPop.appendChild(btnClose);
 
     var tableau = document.querySelector('table');
     tableau.appendChild(divPop);
+
+    const bttnClose = document.getElementById('close');
+    bttnClose.addEventListener('click',closePopup);
+    }
+
+
+
+    console.log()
+
 }
 
 function closePopup() {
-    var divPop = document.getElementById('popup')
+    var divPop = document.getElementById('popup');
     divPop.remove();
 }
 
-const clickOpen = function (){
-    const btn = document.querySelector('strong');
-    btn.addEventListener('click', showPopup);
-}
 
-const clickClose = function (){
-    const btnClose = document.getElementById('close')
-    btnClose.addEventListener('click',closePopup);
-}
+const btn = document.querySelector('strong');
+btn.addEventListener('click', showPopup);
 
-window.onload = clickOpen
+
+
+
+/*window.onload = clickOpen*/
