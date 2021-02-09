@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% load static %}
+   <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+   <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+   {% load bootstrap4 %}
+   {% load crispy_forms_tags %}
+   <meta charset="UTF-8">
+   {% bootstrap_css %}
+   <title>Modification des paramètres</title>
+   <link rel="stylesheet" href="{% static 'catalogue/css/modifParametre.css' %}">
+</head>
+<body>
+ {% include 'nav.html' %}
+    <div class="container" style="margin-top: 50px">
+        <div class="form-group" style="vertical-align: center">
+            <h1>Modifier paramètres</h1>
+                <form action="{% url 'modifParametre' parametre.id %}" method="post">
+                     {% csrf_token %}
+                    <div class="row">
+                        <div class="col-4">
+                            {{ form.PAR_TAUX_TVA|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_DELAI_PAIEMENT|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_DELAI_PREMIER_RAPPEL|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            {{ form.PAR_DELAI_DEUXIEME_RAPPEL|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_NBMAX_RDV_JOUR|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_LIMITE_STOCK|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            {{ form.PAR_FRAIS_LIVRAISON_PETIT|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_FRAIS_LIVRAISON_MOYEN|as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.PAR_FRAIS_LIVRAISON_GRANDE|as_crispy_field }}
+                        </div>
+                    </div>
+
+                            <a href="{% url 'admin' %}"><button class="btn btn-danger">Annuler</button></a>
+                            <input type="submit" class="btn btn-primary" value="Confirmer modification">
+                           <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+
+                </form>
+        </div>
+    </div>
+</body>
+</html>

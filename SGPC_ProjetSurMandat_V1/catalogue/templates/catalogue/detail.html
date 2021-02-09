@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+      {% load bootstrap4 %}
+    <meta charset="utf-8">
+      {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'catalogue/css/detail.css' %}">
+    <title>Détails-Produit</title>
+  </head>
+  <body>
+  {% include 'nav.html' %}
+   <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <img src="{% static 'catalogue/images/images.jpg' %}" style="min-width: 260px" class="img-fluid" alt="Image_Produit">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3" style="font-size: 20px; text-transform: uppercase; font-weight: bold ;color: #ECD27F">
+                <span class="badge purple mr-1">{{produit.PRO_NOM}}</span>
+
+                <span class="badge blue mr-1">{{produit.PRO_MARQUE}}</span>
+
+                <span class="badge red mr-1">{{produit.PRO_CATEGORIE}}</span>
+            </div>
+
+            <p class="lead">
+              <span>
+                <p style="font-size: 20px">{{produit.PRO_PRIX_CATALOGUE}} CHF</p>
+              </span>
+            </p>
+
+            <p class="lead font-weight-bold" style="color: black; font-style: italic">Description</p>
+
+            <p style="color: black">{{produit.PRO_DESCRIPTION}}</p><br>
+              {% if user.is_authenticated and user.UTI_is_admin %}
+                <a href=" {% url 'liste_produits' %} "><button class="btn btn-primary">Gestion des produits</button> </a>
+                <a href="{% url 'listeCommandeOuverte' produit.id %}"><button class="btn btn-success">Ajouter à une commande</button></a>
+              {% elif user.is_authenticated %}
+                <a href="{% url 'ajouterPanier' produit.id %}"><button class="btn btn-success">Ajouter au panier</button></a><br>
+                  <br>{% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      Le produit à bien été ajouté au panier !
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+              {% else %}
+              <h5>Connectez vous ou créez un compte pour ajouter l'article au panier</h5>
+                <a href="{% url 'signup' %}"><button class="btn btn-primary">Créer un compte</button></a>
+                <a href="{% url 'login' %}"><button class="btn btn-primary">Se connecter</button></a>
+              {% endif %}
+          <p>* Tous les prix affichés sont TTC</p>
+          </div>
+          <!--Content-->
+        </div>
+        <!--Grid column-->
+      </div>
+    </div>
+   </main><!--Grid row-->
+  </body>
+</html>

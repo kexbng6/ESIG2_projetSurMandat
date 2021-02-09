@@ -1,0 +1,27 @@
+article{
+    padding: 1%;
+    clear: both;
+    border: solid 2px turquoise;
+}
+
+h2{
+    padding: 1%;
+    border: darkorange;
+    background-color: coral;
+    text-align: center;
+    color: antiquewhite;
+}
+
+.big_article{
+    margin: auto;
+    top: 3%;
+    width: 30%;
+}
+
+#art_gauche{
+    float: left;
+}
+
+#art_droite{
+    float: right;
+}

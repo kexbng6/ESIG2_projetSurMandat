@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/signup.css' %}" rel="stylesheet" type="text/css">
+    <title>S'inscrire</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container containerPage">
+        <div class="form-group">
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.UTI_NOM|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.UTI_PRENOM|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.UTI_DATENAISSANCE|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.UTI_EMAIL|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        {{ form.UTI_NUMEROTEL|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form.UTI_NUMERORUE|as_crispy_field }}
+                    </div>
+                    <div class="col-3">
+                        {{ form.UTI_RUE|as_crispy_field }}
+                    </div>
+                    <div class="col-3">
+                        {{ form.UTI_CODEPOSTALE|as_crispy_field }}
+                    </div>
+                    <div class="col-3">
+                        {{ form.UTI_LOCALITE|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.password1|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.password2|as_crispy_field }}
+                    </div>
+                </div>
+                <p>Les mots de passe doivent contenir au minimum 8 caractères</p>
+                <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+                <input type="submit" class="btn btn-primary" value="S'inscrire">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

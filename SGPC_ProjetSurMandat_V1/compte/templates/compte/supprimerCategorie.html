@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load bootstrap4 %}
+<head>
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="{% static 'compte/css/detailProduitAdmin.css'%}">
+    <title>Supprimer / Réactiver catégorie</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        {%if categorie.CAT_is_active == 1%}
+        <h1>Êtes-vous sur de vouloir supprimer la catégorie {{categorie.CAT_NOM}} ?</h1>
+        <br>
+
+        <form action="{% url 'supprimer_categorie' categorie.id%}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit" class="btn btn-danger" value="Supprimer produit" />
+        </form>
+        {% else %}
+        <h1>Êtes-vous sur de vouloir réactiver la catégorie {{marque.MAR_NOM}} ?</h1>
+        <br>
+
+        <form action="{% url 'reactiver_categorie' categorie.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <input type="submit" class="btn btn-success" value="Reactiver produit" />
+        </form>
+        {%endif%}
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+{#    <link rel="stylesheet" href="{% static 'compte/css/cssNavFooter.css'%}">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Créer un devis</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Créer un devis</h1>
+        <form action="{% url 'creerDevis' %}" method="post">
+        <div class="row">
+             <div class="col-6">
+                {% csrf_token %}
+                {{ form.DEV_UTI|as_crispy_field }}
+             </div>
+        </div>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="row">
+                <div class="col-3">
+                    {{ form.ASD_SER_ID|as_crispy_field }}
+                </div>
+                <div class="col-3">
+                    {{ form.ASD_PRIX_EFFECTIF|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                    {{ form.ASD_COMMENTAIRE|as_crispy_field }}
+                </div>
+            </div>
+        {% endfor %}
+{#        {% for field in formset %}#}
+{#					{{field|as_crispy_field}}#}
+{#		{% endfor %}#}
+        <br>
+        <input type="submit" class="btn btn-success" value="Créer">
+    </form>
+    </div>
+</body>
+</html>
+
+{# fields=('ASD_SER_ID', 'ASD_PRIX_EFFECTIF', 'ASD_COMMENTAIRE')#}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    <html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'compte/css/client.css' %}">
+    <title>Espace client</title>
+    </head>
+    <body>
+        {% include 'nav.html' %}
+            <div class="container" style="margin-top: 60px">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Mes rendez-vous
+                            </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="container" style="margin-top: 10px">
+                                    <div class="table  table-hover align-items-center">
+                                        <table class="table  ">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col" >Nom du service</th>
+                                                    <th scope="col">Statut</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for rdv in reservations %}
+                                                    <tr>
+                                                        <td>{{rdv.RES_DATE}}</td>
+                                                        <td>{{ rdv.RES_SER_ID.SER_NOM }}</td>
+                                                        <td>{{rdv.RES_STATUT}}</td>
+                                                        <td><a href="{% url 'detail_RDV' rdv.id %}"><button class="btn btn-primary">Détails</button></a></td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    <a href="{% url 'listeRDVClient' user.id %}"><button class="btn btn-primary">Liste des réservation</button></a>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Dernières commandes
+                                </button>
+                            </h2>
+                        </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="table  table-hover align-items-center">
+                                    <table class="table  ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Référence de la commande</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for com in commandes %}
+                                                <tr>
+                                                    <td>commande n°{{ com.id }}</td>
+                                                    <td>{{ com.COM_DATE }}</td>
+                                                    <td>{{ com.COM_STATUT }}</td>
+                                                    <td></td>
+                                                    <td><a href="{% url 'detail_commande' com.id %}"><button class="btn btn-primary">Détails</button></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <a href="{% url 'listeCommandeEspaceClient' user.id %}"><button class="btn btn-primary">Liste des réservation</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingfour">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link btn-block text-center collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
+                          Mes devis
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordionExample">
+                      <div class="card-body">
+<div class="container">
+                                <div class="table  table-hover align-items-center">
+                                    <table class="table  ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Référence du devis</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for dev in devis %}
+                                                <tr>
+                                                    <td>Devis n°{{ dev.id }}</td>
+                                                    <td>{{ dev.DEV_DATE }}</td>
+                                                    <td></td>
+                                                    <td><a href="{% url 'detail_devis' dev.id %}"><button class="btn btn-primary">Détails</button></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                <a href="{% url 'listeDevisClient' user.id %}"><button class="btn btn-primary">Liste des devis</button></a>
+                                </div>
+                            </div>                      </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Mes données
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Donées personnel</h5>
+                                        <p class="card-text text-center">{{user.UTI_NOM}} {{user.UTI_PRENOM}}<br>{{user.UTI_NUMERORUE}} {{user.UTI_RUE}}  <br>
+                                            {{user.UTI_CODEPOSTALE}} {{user.UTI_LOCALITE}} <br>
+                                            {{user.UTI_NUMEROTEL}} <br>
+                                            {{user.UTI_DATENAISSANCE}}</p>
+                                        <form action="{% url 'modif_donnees' user.id %}">
+                                            <input type="submit" class="btn btn-primary" value="Modifier mes données" />
+                                        </form>
+                                </div>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

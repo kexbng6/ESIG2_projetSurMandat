@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Demander une devis</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+       <div class="container" style="margin-top: 50px">
+        <div class="form-group" style="vertical-align: center">
+            <h1>Demander un devis</h1>
+            <form action="{% url 'demandeDevis' %}" method="post">
+            <br>
+            {% csrf_token %}
+            {{ form.email|as_crispy_field}}
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+            {{ form.choice|as_crispy_field}}
+            {{ form.demande|as_crispy_field}}
+            <br>
+            <p>Maintenez la touche "CTRL" afin de séléctionner plusieurs services.</p>
+            <br>
+            <input type="submit" class="btn btn-success" value="Envoyez ma demande de devis">
+        </form>
+    </div>
+       </div>
+</body>
+</html>

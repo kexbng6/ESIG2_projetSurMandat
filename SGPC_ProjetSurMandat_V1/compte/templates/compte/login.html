@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+     {% load static %}
+     {% load bootstrap4 %}
+   <meta charset="utf-8">
+   {% bootstrap_css %}
+   <link rel="stylesheet" href="{% static 'compte/css/login.css' %}">
+   <title>Login</title>
+ </head>
+ <body>
+ {% include 'nav.html' %}
+     <div class="container page" style="margin-top: 2%">
+       <!-- zone de connexion -->
+       <form action="{% url 'login' %}" method="POST">
+         <img class="imagelogin" src="{% static 'compte/images/SGPC.PNG' %}" alt="logo">
+         {% csrf_token %}
+         {{ form }}
+         <a href="{% url 'reset_password' %}">Mot de passe oublié ?</a>
+         <span><input type="submit" id='submit' value='Connexion' ></span>
+         <br>
+         <p id="PasDeCompte">--------- Vous n'avez pas encore de compte ? ---------</p>
+       </form>
+       <div id="btninscription" >
+         <a href="{% url 'signup' %}"><button id="buttonSignup" type="button" name="button">Inscrivez-vous</button></a>
+       </div>
+     </div>
+<!--      <div id="imgProduitConnexion">-->
+<!--        <img src="{% static 'compte/images/Produit.jpg' %}" alt="image_produit">-->
+<!--      </div>-->
+ </body>
+</html>

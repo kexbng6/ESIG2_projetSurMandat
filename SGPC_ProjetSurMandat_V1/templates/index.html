@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="{% static 'compte/css/index.css' %}">
+    <title>Bienvenue sur SG Perfomances Customs</title>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <section>
+      <div class="container-fluid services">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 divbutton">
+                {#<a href="{% url 'nosServices' %}"><button class="btn btn-custom btnsPage col-md-6">Service</button></a>#}
+              </div>
+              <article class="col-md-6 col-lg-6 col-xs-6 col-sm-6 articleGauche">
+                <h1 class="titreArticle">Services</h1>
+                <p class="texteArticle"> ncidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+              </article>
+            </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container-fluid nettoyage">
+        <div class="container">
+                      <div class="row">
+              <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 divbutton">
+                <a href="{% url 'catalogue' %}"><button class="btn btn-custom btnsPage col-md-6">Boutique</button></a>
+              </div>
+              <article class="col-md-6 col-lg-6 col-xs-6 col-sm-6 articleGauche">
+                <h1 class="titreArticle">Nettoyage</h1>
+                <p class="texteArticle"> ncidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+              </article>
+            </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container-fluid reservation">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 divbutton">
+{#                <a href="{% url 'nosServices' %}"><button class="btn btn-custom btnsPage col-md-6">Fixez un rendez-vous</button></a>#}
+              </div>
+              <article class="col-md-6 col-lg-6 col-xs-6 col-sm-6 articleGauche">
+                <h1 class="titreArticle">Réservation</h1>
+                <p class="texteArticle"> ncidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+              </article>
+            </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

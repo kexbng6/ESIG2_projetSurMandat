@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% load static %}
+   <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+   <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+   {% load bootstrap4 %}
+   <meta charset="UTF-8">
+   {% bootstrap_css %}
+   <title>Liste des paramètres</title>
+   <link rel="stylesheet" href="{% static 'catalogue/css/modifParametre.css' %}">
+</head>
+<body>
+ {% include 'nav.html' %}
+
+ <div class="container-fluid" style="margin-top: 100px">
+     <h3 style="text-align: center">Tableau de paramètres</h3><br>
+     <table class="table table-responsive" style="text-align: center">
+      <thead>
+        <tr>
+          <th scope="col">Taux TVA</th>
+          <th scope="col">Delai paiement</th>
+          <th scope="col">Delai premier rappel</th>
+          <th scope="col">Delai deuxième rappel</th>
+          <th scope="col">Nombre maximum de rendez-vous par jour</th>
+          <th scope="col">Limite de stock</th>
+          <th scope="col">Frais de livraison petit</th>
+          <th scope="col">Frais de livraison moyenne</th>
+          <th scope="col">Frais de livraison grande</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for para in parametres %}
+            <tr>
+              <th>{{ para.PAR_TAUX_TVA }}</th>
+              <td>{{ para.PAR_DELAI_PAIEMENT }} jours</td>
+              <td>{{ para.PAR_DELAI_PREMIER_RAPPEL }} jours</td>
+              <td>{{ para.PAR_DELAI_DEUXIEME_RAPPEL }} jours</td>
+              <td>{{ para.PAR_NBMAX_RDV_JOUR }}</td>
+                <td>{{ para.PAR_LIMITE_STOCK }}</td>
+               <td>{{ para.PAR_FRAIS_LIVRAISON_PETIT }}</td>
+               <td>{{ para.PAR_FRAIS_LIVRAISON_MOYEN }}</td>
+               <td>{{ para.PAR_FRAIS_LIVRAISON_GRANDE }}</td>
+               <td><a href="{% url 'modifParametre' para.id %}"><button class="btn btn-primary">Modifier</button></a></td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+ </div>
+</body>
+</html>

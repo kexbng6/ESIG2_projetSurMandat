@@ -1,0 +1,83 @@
+
+body, html{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: Calibri, sans-serif;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+header{
+    clear: both;
+    color: white;
+    padding: 5% 0 0 4%;
+    background-image: url("../images/sgpc_bannerCatalogue.png");
+    background-size: cover;
+}
+
+
+#id_PRO_MARQUE{
+    width: 100px;
+    margin-left: 1.5%;
+}
+
+#id_PRO_CATEGORIE{
+    width: 100px;
+    margin-left: 0.5%;
+}
+
+
+
+.box
+{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+.card
+{
+    margin-top: 50px;
+    min-height: 400px;
+    transition: 0.5s;
+}
+.card:hover
+{
+    border: 1px solid red;
+    border-radius: 30px;
+}
+.card .cardImg
+{
+    height: 120px;
+    width: 90%;
+    position: relative;
+    top: 30px;
+    left: 5%;
+}
+.card .cardImg img
+{
+    width: 100%;
+    height: 100%;
+}
+
+.card .info
+{
+    margin-top:80px;
+    text-align: center;
+}
+.card .info h3
+{
+    color: rgb(70, 66, 66);
+}
+.card .info p
+{
+    color: rgb(41, 201, 49);
+}
+
+.ligne
+{
+    display: flex;
+}

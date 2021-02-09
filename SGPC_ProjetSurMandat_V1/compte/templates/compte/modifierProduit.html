@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/modifierProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Modification d'un produit</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <div class="form-group">
+            <h1>Modification du produit</h1>
+            <form action="{% url 'modif_produit' produit.id %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.PRO_NOM|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.PRO_MARQUE|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.PRO_PRIX_CATALOGUE|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.PRO_CATEGORIE|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.PRO_QUANTITESTOCK|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.PRO_IMAGE|as_crispy_field }}
+                    </div>
+                    <div class="col-12">
+                        {{ form.PRO_DESCRIPTION|as_crispy_field }}
+                    </div>
+                </div>
+                <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+                <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+            <br>
+                <a href="{% url 'creerMarque'%}"> <button class="btn btn-success">Créer marque</button></a><a href="{% url 'creerCategorie'%}"> <button class="btn btn-success">Créer catégorie</button></a>
+        </div>
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    {% load catalogue_extras %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <title>Liste Commande en préparation</title>
+</head>
+<body>
+{% include 'nav.html' %}
+    <div class="container">
+    <br>
+        <form method="get">
+            {{com_filtrer.form.as_p}} <input type="submit" class="btn btn-primary btn-sm" value="Filtrer">
+        </form>
+        {% if commande_page_obj %}
+        <div class="table-responsive-md" style="text-align: center;margin-top: 50px">
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Numéro de commande</th>
+                  <th scope="col">Nom du client</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col"></th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for com in commande_page_obj %}
+                <tr>
+                  <td>{{com.id }}</td>
+                  <td>{{com.COM_UTI_ID.UTI_NOM}}</td>
+                  <td>{{com.COM_DATE}}</td>
+                  <td>{{com.COM_STATUT}}</td>
+                  <td><a href="{% url 'detail_commande' com.id %}"><button class="btn btn-primary">Détail</button> </a> </td>
+              {% endfor %}
+              </tbody>
+            </table>
+            {% if commande_page_obj.has_previous %}
+              <a href="{% my_url commande_page_obj.previous_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page précédente</button></a>
+            {% endif %}
+            {% if commande_page_obj.has_next %}
+              <a href="{% my_url commande_page_obj.next_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page suivante</button></a>
+            {% endif %}
+        </div>
+    {% else %}
+            <br>
+            <h3>Aucun résultat correspondant à votre requête</h3>
+    {% endif %}
+    </div>
+</body>
+</html>

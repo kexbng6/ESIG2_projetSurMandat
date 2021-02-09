@@ -1,0 +1,94 @@
+body, html{
+   padding: 0;
+   margin: 0;
+}
+
+body{
+   font-family: Calibri, sans-serif;
+}
+
+a, a:hover {
+   text-decoration: none;
+}
+
+/* Reglage pour la page en entière */
+
+.container-fluid{
+   padding: 0;
+   color: white;
+}
+
+.btnsPage {
+   background-color: #E68B02;
+   top : 50%;
+   width: auto;
+   color: white;
+   font-size: 20px;
+   text-transform: uppercase;
+   border-radius: 10px ;
+
+}
+
+.divbuttonDroite{
+   top : 50%;
+}
+
+.titreArticle{
+   font-size: 60px;
+   text-transform: uppercase;
+   text-align: left;
+   margin-left: -60px;
+}
+
+.texteArticle{
+   margin-top: 50px;
+   margin-left: -50px;
+   text-align: left;
+}
+
+.articleGauche{
+   height: 560px;
+   padding-left: 50px;
+   position: relative;
+   float: right;
+   text-align: center;
+   padding-top: 15%;
+}
+
+/* bienvenue */
+.bienvenue{
+   background-image: url("../images/div_bienvenu-SG_index.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 600px;
+}
+/* service */
+
+.services{
+   background-image: url("../images/div_covering-SG_index.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 600px;
+   display: inline-block;
+}
+
+
+/* nettoyage */
+
+.nettoyage{
+   background-image: url("../images/div_nettoyage-SG_index.png");
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 600px;
+}
+
+
+/* Reservation */
+
+.reservation{
+   background-image: url("../images/div_reservation-SG_index.png");
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 600px;
+   background-color: gray;
+}

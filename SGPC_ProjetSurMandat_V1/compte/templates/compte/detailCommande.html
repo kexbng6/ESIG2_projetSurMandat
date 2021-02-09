@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/DetailCommande.css' %}" rel="stylesheet" type="text/css">
+    <title>Detail de commande</title>
+</head>
+    <body>
+        {% include 'nav.html' %}
+        <div class="container">
+            <h1>Detail de la commande</h1>
+            <BR>
+            {% if user.is_authenticated and user.UTI_is_admin %}
+            <p>Commande effectué par {{commande.COM_UTI_ID.UTI_PRENOM}} {{commande.COM_UTI_ID.UTI_NOM}}</p>
+            <p>Date :  {{commande.COM_DATE}}</p>
+            {% for asso in assos %}
+                <p>{{asso.ACP_PRODUIT.PRO_NOM}} - {{asso.ACP_PRIX_VENTE}} CHF - {{asso.ACP_QUANTITE}}x</p>
+            {% endfor %}
+
+                {% for res in reservation %}
+                    {% if res.RES_DEV_ID %}
+                        {% for assoD in assoDev %}
+                            {% if assoD.ASD_SER_ID_id == res.RES_SER_ID_id %}
+                                <p>{{ res.RES_DATE }} - {{ res.RES_SER_ID.SER_NOM }} - {{ assoD.ASD_PRIX_EFFECTIF }} CHF</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>{{ res.RES_DATE }} - {{ res.RES_SER_ID.SER_NOM }} - {{ res.RES_SER_ID.SER_PRIX_STANDARD }} CHF</p>
+                    {% endif %}
+                {% endfor %}
+                <p>Statut de la facture : {{ commande.COM_FACTURE_STATUT }}</p>
+            <a href="{% url 'admin' %}"><button class="btn btn-primary">Retour à l'espace administrateur</button> </a>
+            <a href="{% url 'pdf_view' commande.id %}"><button class="btn btn-primary">Facture PDF</button> </a>
+            {% if commande.COM_FACTURE_STATUT != "Payée" %}
+                <a href="{% url 'facturePaye' commande.id %}"><button class="btn btn-success">Facture payée</button> </a>
+            {% endif %}
+            {% elif user.is_authenticated %}
+            <p>Commande effectué le {{commande.COM_DATE}}</p>
+            {% for asso in assos %}
+                <p>{{asso.ACP_PRODUIT.PRO_NOM}} - {{asso.ACP_PRIX_VENTE}} CHF - {{asso.ACP_QUANTITE}}x</p>
+            {% endfor %}
+            {% for res in reservation %}
+                    {% if res.RES_DEV_ID %}
+                        {% for assoD in assoDev %}
+                            {% if assoD.ASD_SER_ID_id == res.RES_SER_ID_id %}
+                                <p>{{ res.RES_DATE }} - {{ res.RES_SER_ID.SER_NOM }} - {{ assoD.ASD_PRIX_EFFECTIF }} CHF</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>{{ res.RES_DATE }} - {{ res.RES_SER_ID.SER_NOM }} - {{ res.RES_SER_ID.SER_PRIX_STANDARD }} CHF</p>
+                    {% endif %}
+                {% endfor %}
+            <p>Statut de la facture : {{ commande.COM_FACTURE_STATUT }}</p>
+            <BR>
+            <a href="{% url 'client' commande.COM_UTI_ID_id %}"><button class="btn btn-primary">Retour à l'espace client</button> </a>
+            <a href="{% url 'pdf_view' commande.id %}"><button class="btn btn-primary">Facture PDF</button> </a>
+            {% endif %}
+
+
+        </div>
+
+    </body>
+</html>

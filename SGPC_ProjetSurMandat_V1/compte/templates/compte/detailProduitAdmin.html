@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+<head>
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'compte/css/detailProduitAdmin.css'%}">
+    <title>Supprimer / Réactiver produit</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container" style="margin-top: 20px">
+        {%if produit.is_active == 1%}
+        <h1>Êtes-vous sur de vouloir supprimer le produit {{produit.PRO_NOM}} ?</h1>
+        <br>
+        <form action="{% url 'supprimer_produit' produit.id%}" method="post">
+        {% csrf_token %}
+        {{ form }}
+
+        <input type="submit" class="btn btn-danger" value="Supprimer produit" />
+        </form>
+        {% else %}
+        <h1>Êtes-vous sur de vouloir réactiver le produit {{produit.PRO_NOM}} ?</h1>
+        <br>
+        <form action="{% url 'reactiverProduit' produit.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <input type="submit" class="btn btn-success" value="Reactiver produit" />
+        </form>
+        {%endif%}
+    </div>
+</body>
+</html>

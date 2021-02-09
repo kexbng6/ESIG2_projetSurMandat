@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    {% bootstrap_css %}
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'catalogue/css/catalogue.css' %}">
+    <title>Catalogue</title>
+  </head>
+  <body>
+  {% include 'nav.html' %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+  {% load catalogue_extras %}
+  <br><br>
+  <div class="container">
+      <form action="{% url 'search' %}" method="get">
+        <input type="text" name="search" placeholder="Rechercher">
+        <button class="btn btn-primary btn-sm">Rechercher</button>
+  </form>
+  <br>
+      <form method="get">
+        {{produit_filtrer.form.as_p}}
+        <input type="submit" class="btn btn-primary btn-sm" value="Filtrer">
+      </form>
+  </div>
+  <br>
+  {% if produit_page_obj %}
+  <div class="container">
+        <div class="row">
+            {% for prod in produit_page_obj %}
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="box card">
+                    <div class="box cardImg">
+                        <img class="img-responsive" src="{% static 'catalogue/images/images.jpg' %}" alt="{{ prod.PRO_NOM }}">                    </div>
+                    <div class="info">
+                        <h3>{{ prod.PRO_NOM }} </h3>
+                        <h3>{{ prod.PRO_MARQUE }}</h3>
+                        <h3>{{ prod.PRO_PRIX_CATALOGUE }} CHF</h3>
+                        <a href="{% url 'detail' produit_id=prod.id  %}"><button class="btn btn-primary">Acheter</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+  <br>
+      {% if produit_page_obj.has_previous %}
+          <a href="{% my_url produit_page_obj.previous_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page précédente</button></a>
+      {% endif %}
+      {% if produit_page_obj.has_next %}
+          <a href="{% my_url produit_page_obj.next_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page suivante</button></a>
+      {% endif %}
+
+  </div>
+  {% else %}
+      <div class="container">
+        <h3>Nous n'avons malheureusement rien trouvé</h3>
+      </div>
+  {% endif %}
+  </body>
+</html>

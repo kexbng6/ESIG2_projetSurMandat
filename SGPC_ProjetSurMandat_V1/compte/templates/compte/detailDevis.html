@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/listeProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Detail du devis</title>
+</head>
+    <body>
+        {% include 'nav.html' %}
+{#        <div>#}
+{#            <h1>Detail du devis {{devis.id }}</h1>#}
+{#            <BR>#}
+{#            <p>{{devis.DEV_UTI.UTI_PRENOM}} {{devis.DEV_UTI.UTI_NOM}} {{devis.DEV_DATE}}</p>#}
+{#             {% for asso in assos %}#}
+{#                {% if asso.ASD_COMMENTAIRE == None %}#}
+{#                    <p> {{asso.ASD_SER_ID.SER_NOM}} - {{asso.ASD_PRIX_EFFECTIF}} <a href="{% url 'creerDevisReservation' pk=devis.id serID=asso.ASD_SER_ID_id %}"><button class="btn btn-primary">Créer une réservation</button></a></p>#}
+{#                 {% else %}#}
+{#                    <p> {{asso.ASD_SER_ID.SER_NOM}} - {{asso.ASD_PRIX_EFFECTIF}} - {{asso.ASD_COMMENTAIRE}}<a href="{% url 'creerDevisReservation' pk=devis.id serID=asso.ASD_SER_ID_id %}"><button class="btn btn-primary">Créer une réservation</button></a></p>#}
+{#                 {% endif %}#}
+{#            {% endfor %}#}
+{#        </div>#}
+    <div class="container">
+    <h1>Detail du devis {{devis.id }}</h1><BR><BR>
+        <div class="table-responsive-md">
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for asso in assos %}
+                <tr>
+                  <td>{{asso.ASD_SER_ID.SER_NOM}}</td>
+                  <td>{{asso.ASD_PRIX_EFFECTIF}} CHF</td>
+                  {% if asso.ASD_COMMENTAIRE == None %}
+                    <td></td>
+                  {% else %}
+                    <td>{{ASD_COMMENTAIRE}}</td>
+                  {% endif %}
+                  {% if asso.ASD_SER_ID_id in listRes %}
+                      {% for res in reservation %}
+
+                            {% if res.RES_SER_ID_id == asso.ASD_SER_ID_id %}
+                               <td>
+                                    Ce service a déjà été réservé.
+                               </td>
+                            {% endif %}
+                      {% endfor %}
+                  {% else %}
+                      <td>
+                           <a href="{% url 'creerDevisReservation' devis.id asso.ASD_SER_ID_id %}"><button class="btn btn-primary">Créer une réservation</button> </a>
+                      </td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    <a href="{% url 'devisPDF' devis.id %}"><button class="btn btn-primary">Voir devis</button> </a>
+    </div>
+    </body>
+</html>

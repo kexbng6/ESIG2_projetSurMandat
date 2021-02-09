@@ -1,0 +1,87 @@
+<head>
+    {% load static %}
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+    	<h2>SG Performances Customs</h2>
+		{# <img src="{% static 'catalogue/images/SGPC.PNG' %}">#}
+        <h3>Commande du {{ commande.COM_DATE }}</h3>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">page <pdf:pagenumber>
+        sur <pdf:pagecount>
+    </div>
+
+    <!-- HTML Content -->
+    <table>
+    		<tr>
+    			<td>{{commande.COM_UTI_ID.UTI_PRENOM}} {{commande.COM_UTI_ID.UTI_NOM}},</td>
+    		</tr>
+			<br>
+    </table>
+				<p>{{ commande.COM_UTI_ID.UTI_RUE}} {{ commande.COM_UTI_ID.UTI_NUMERORUE}}</p>
+				<p>{{ commande.COM_UTI_ID.UTI_CODEPOSTALE }} {{ commande.COM_UTI_ID.UTI_LOCALITE}}</p>
+				<p>{{ commande.COM_UTI_ID.UTI_NUMEROTEL}}</p>
+    			<p>{{ commande.COM_UTI_ID.UTI_EMAIL}}</p>
+
+    <hr>
+
+    <table>
+    	<tr>
+    		<th>Produit</th>
+    		<th>Prix</th>
+    		<th>Quantité</th>
+    		<th>Total</th>
+    	</tr>
+    {% for asso in assos %}
+    	<tr>
+    		<td>{{ asso.ACP_PRODUIT.PRO_NOM }}</td>
+    		<td>{{ asso.ACP_PRIX_VENTE }} CHF</td>
+    		<td>{{ asso.ACP_QUANTITE }}</td>
+    		<td>{% widthratio asso.ACP_PRIX_VENTE 1 asso.ACP_QUANTITE %} CHF</td>
+    	</tr>
+    {% endfor %}
+        <tr>
+    		<th>Service</th>
+    		<th>Prix</th>
+    	</tr>
+        {% for res in reservation %}
+        {% if res.RES_DEV_ID %}
+            {% for assoD in assoDev %}
+            <tr>
+                <td>{{ assoD.ASD_SER_ID.SER_NOM }} {{ assoD.ASD_PRIX_EFFECTIF }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+               <td>{{ res.RES_SER_ID.SER_NOM }}</td>
+               <td> {{ res.RES_SER_ID.SER_PRIX_STANDARD }}</td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <hr>
+
+    <p><strong>Total TTC: {{ commandeTot }} CHF</strong></p>
+	<p><strong>TVA: {{ tauxTVA }} %</strong></p>
+</body>
+</html>

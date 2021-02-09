@@ -1,0 +1,13 @@
+table{
+   top: 20%;
+   margin: auto;
+   width: 60%;
+   border: groove 2px dimgrey;
+}
+
+#entete{
+   background-color: coral;
+   text-align: center;
+   font-size: 2em;
+   font-weight: bold;
+}

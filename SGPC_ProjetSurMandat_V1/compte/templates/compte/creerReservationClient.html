@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Créer réservation</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Prendre rendez-vous</h1>
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+        <form action="{% url 'create_reservationClient' %}" method="post">
+        <br>
+        {% csrf_token %}
+        {{ form.RES_DATE|as_crispy_field  }}
+        {{ form.RES_SER_ID|as_crispy_field}}
+        <br><br>
+        <input type="submit" class="btn btn-success" value="Créer">
+    </form>
+    </div>
+
+</body>
+</html>

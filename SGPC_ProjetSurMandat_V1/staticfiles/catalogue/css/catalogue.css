@@ -1,0 +1,23 @@
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+}
+
+.produit {
+    border: coral 2px solid;
+    width: 25%;
+    min-height: 200px;
+    margin: 20px;
+    display: inline-block;
+    position: relative ;
+    float: left;
+    text-align: center;
+    color: black;
+}
+
+
+form{
+    margin: auto;
+    width: 20%;
+}

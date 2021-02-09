@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/admin.css' %}" rel="stylesheet" type="text/css">
+    <title>Espace administration</title>
+</head>
+<body>
+{% include 'nav.html' %}
+<div class="container">
+    {% if produitsStockAlert|length > 1 %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <p>les produits {% for produit in produitsStockAlert %} <strong>{{ produit.PRO_NOM }} ({{ produit.PRO_QUANTITESTOCK }})</strong> {% endfor %}, ont une faible quantité en stock.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    {% else %}
+        {% for produit in produitsStockAlert %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+              <p>le produit <strong>{{ produit.PRO_NOM }} ({{ produit.PRO_QUANTITESTOCK }})</strong> , a une faible quantité en stock.</p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="container">
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-center button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Planning des rendez-vous
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+       <ul style="list-style-type: none">
+            {% for rdv in reservations %}
+                <a href="{% url 'detail_RDV' rdv.id %}">
+                    <li>{{rdv.RES_UTI_ID.UTI_NOM}} - {{rdv.RES_SER_ID.SER_NOM}}
+                    - {{rdv.RES_DATE}} - {{rdv.RES_STATUT}}
+                    </li>
+                </a>
+            {% endfor %}
+                <br>
+                {% if user.is_authenticated and user.UTI_is_admin %}
+                <a href="{% url 'create_reservation'%}"><button class="btn btn-primary">Créer un rendez-vous</button></a>
+                <a href="{% url 'listeRendezVous' %}"><button class="btn btn-primary">Liste de tous les rendez-vous</button> </a>
+                {% endif %}
+            </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="text-align: center">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dernières commandes
+        </button>
+      </h2>
+    </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+
+      <a hreflang="{% url 'listeCommande' %}" class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Afficher les commandes en préparation</a>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Afficher les commandes expédiées</button>
+              <a href="{% url 'listeCommande' %}"><button class="btn btn-primary">Liste de toutes le commandes</button></a>
+    </p>
+    <div class="row">
+      <div class="col-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="card card-body">
+               <ul style="list-style-type: none">
+                   {% if commandesEnPrep %}
+                      {% for comPrep in commandesEnPrep %}
+                           <a href="{% url 'detail_commande' comPrep.id %}">
+                          <li>
+                            {{ comPrep.id }} - {{comPrep.COM_UTI_ID.UTI_NOM}} - {{comPrep.COM_DATE}} - {{comPrep.COM_STATUT}}  <a href="{% url 'numeroSuivi' comPrep.id %}"><button class="btn btn-outline-secondary">Entrer n° suivi</button></a>
+                          </li>
+                           <div class="container containerbutton">
+
+                            </div>
+                           </a>
+                      {% endfor %}
+                       <a href="{% url 'listeCommandePrep' %}"><button class="btn btn-primary">Toutes les commandes en préparation</button></a>
+                {% else %}
+                        <p>Aucune commande en préparation</p>
+                  {% endif %}
+              </ul>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+          <div class="card card-body">
+              <ul style="list-style-type: none">
+              {% if commandesExpediees %}
+                  {% for comExp in commandesExpediees %}
+                       <a href="{% url 'detail_commande' comExp.id %}">
+                      <li>
+                        {{comExp.COM_UTI_ID.UTI_NOM}} - {{comExp.COM_DATE}} - {{comExp.COM_STATUT}}
+                      </li>
+                       </a>
+                  {% endfor %}
+              {% else %}
+                  <p>Aucune commande expédiées</p>
+              {% endif %}
+              </ul>
+              <div class="container containerbutton">
+                  <a href="{% url 'listeCommandeExp' %}"<button class="btn btn-primary">Toutes les commandes expédiées</button></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{#          <ul>#}
+{#            {% for com in commandes %}#}
+{#                <a href="{% url 'detail_commande' com.id %}">#}
+{#                    <li>{{com.COM_UTI_ID.UTI_NOM}} - {{com.COM_DATE}} - {{com.COM_STATUT}}</li>#}
+{#                </a>#}
+{#             {% endfor %}#}
+{#          </ul>#}
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Liste des devis
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+          <ul style="list-style-type: none">
+            {% for dev in devis %}
+                <a href="{% url 'detail_devis' dev.id %}"><li>{{dev.id}} - {{dev.DEV_UTI.UTI_NOM}} - {{dev.DEV_DATE}}
+                 {% for service in dev.service.all %} {{dev.DEV_SER.SER_NOM}} {%endfor%}
+                </li></a>
+             {% endfor %}
+          <a href="{% url 'creerDevis' %}}"><button class="btn btn-primary">Créer un devis</button></a>
+          <a href="{% url 'listeDevis' %}"><button class="btn btn-primary">Liste des devis</button></a>
+          </ul>
+
+      </div>
+    </div>
+  </div>
+    <div class="card">
+    <div class="card-header" id="headingFour">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+          Gestion des produits
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="row row-cols-3">
+            <div class="col-3">
+            </div>
+            <div class="col-3">
+                <a href="{% url 'liste_produits' %}"><button class="btn btn-primary">Liste des produits</button></a>
+            </div>
+            <div class="col-3">
+            {% if user.is_authenticated and user.UTI_is_admin %}
+                <a href="{% url 'create_produit'%}"><button class="btn btn-primary">Créer un produit</button></a>
+            {% endif %}
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+      </div>
+    </div>
+       <div class="card-header" id="headingFive">
+ <h2 class="mb-0">
+   <button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+     Gestion des paramètres
+   </button>
+ </h2>
+</div>
+<div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+ <div class="card-body">
+   <div class="row row-cols-3">
+       <div class="col-3">
+       </div>
+       <div class="col-3">
+           <p style="min-width: 500px;">Modification des paramètres de vente comme la TVA, la quantité de produits avant un avertissement de stock insuffisante ainsi que les délais de rappel pour non-paiements</p>
+           <a href="{% url 'listParametre' %}"><button class="btn btn-primary">Liste des paramètres</button></a>
+       </div>
+       <div class="col-3">
+       </div>
+       <div class="col-3">
+       </div>
+   </div>
+ </div>
+
+  </div>
+</div>
+</div>
+</body>
+</html>

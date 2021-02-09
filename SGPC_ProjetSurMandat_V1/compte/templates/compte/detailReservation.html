@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+<head>
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/DetailReservation.css' %}" rel="stylesheet" type="text/css">
+    <title>Détail d'une réservation</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Détail du rendez-vous n°{{reservation.id}}</h1>
+        <br>
+        {% if user.is_authenticated and user.UTI_is_admin %}
+            <p>Nom :  {{reservation.RES_UTI_ID.UTI_NOM}}</p>
+            <p>Prénom :{{reservation.RES_UTI_ID.UTI_PRENOM}}</p>
+            <p>Date : {{reservation.RES_DATE}}</p>
+            <p>Statut :{{reservation.RES_STATUT}}</p>
+            <p>Type de service : {{reservation.RES_SER_ID.SER_NOM}}</p>
+            {% if assos %}
+                {% for asso in assos %}
+                    {% if not asso.ASD_PRIX_EFFECTIF == RES_SER_ID.SER_PRIX_STANDARD %}
+                        {% if asso.ASD_SER_ID_id == reservation.RES_SER_ID_id %}
+                            <p>Prix : {{asso.ASD_PRIX_EFFECTIF}} CHF</p>
+                        {% endif %}
+                    {% else %}
+                         <p>Prix : {{reservation.RES_SER_ID.SER_PRIX_STANDARD}} CHF</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>Prix : {{reservation.RES_SER_ID.SER_PRIX_STANDARD}} CHF</p>
+            {% endif %}
+            {% if devis %}
+                <p>Selon devis n° {{ reservation.RES_DEV_ID_id }}</p>
+            {% endif %}
+            {% if reservation.RES_COM_ID %}
+                <p>Dans la commande {{ reservation.RES_COM_ID_id }}</p>
+            {% endif %}
+            <br>
+        <a href="{% url 'modif_reservation' reservation.id %}"><button class="btn btn-primary">Modifier la reservation</button></a>
+        {% if reservation.RES_COM_ID_id == None %}
+            <a href="{% url 'creerCommandeRDV' reservation.id %}"><button class="btn btn-success">Créer une réservation</button></a>
+            <a href="{% url 'listeCommandeClient' reservation.RES_UTI_ID_id reservation.id %}"><button class="btn btn-success">Ajouter à une commande</button></a>
+        {% endif %}
+        {% elif user.is_authenticated %}
+            <p>Date : {{reservation.RES_DATE}}</p>
+            <p>Statut :{{reservation.RES_STATUT}}</p>
+            <p>Nom : {{reservation.RES_SER_ID.SER_NOM}}</p>
+            {% if assos %}
+                {% for asso in assos %}
+                    {% if not asso.ASD_PRIX_EFFECTIF == RES_SER_ID.SER_PRIX_STANDARD %}
+                        {% if asso.ASD_SER_ID_id == reservation.RES_SER_ID_id %}
+                            <p>Prix : {{asso.ASD_PRIX_EFFECTIF}} CHF</p>
+                        {% endif %}
+                    {% else %}
+                         <p>Prix : {{reservation.RES_SER_ID.SER_PRIX_STANDARD}} CHF</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>Prix : {{reservation.RES_SER_ID.SER_PRIX_STANDARD}} CHF</p>
+            {% endif %}
+            {% if devis %}
+                <p>Selon devis n° {{ reservation.RES_DEV_ID_id }}</p>
+            {% endif %}
+            {% if reservation.RES_COM_ID %}
+                <p>Dans la commande {{ reservation.RES_COM_ID_id }}</p>
+            {% endif %}
+            <a href="{% url 'client' user.id %}"><button class="btn btn-primary">Revenir à mon espace client</button></a>
+            {% if reservation.RES_COM_ID_id == None %}
+                <a href="{% url 'creerCommandeRDV' reservation.id %}"><button class="btn btn-success">Créer une commande</button></a>
+                <a href="{% url 'listeCommandeClient' reservation.RES_UTI_ID_id reservation.id %}"><button class="btn btn-success">Ajouter à une commande</button></a>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</body>
+</html>

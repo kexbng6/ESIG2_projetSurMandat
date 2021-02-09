@@ -1,0 +1,70 @@
+<head>
+    {% load static %}
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+    	<h2>SG Performances Customs</h2>
+		{# <img src="{% static 'catalogue/images/SGPC.PNG' %}">#}
+        <h3>Devis du {{ devis.DEV_DATE }}</h3>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">page <pdf:pagenumber>
+        sur <pdf:pagecount>
+    </div>
+
+    <!-- HTML Content -->
+    <table>
+    		<tr>
+    			<td>{{devis.DEV_UTI.UTI_PRENOM}} {{devis.DEV_UTI.UTI_NOM}}</td>
+    		</tr>
+			<br>
+    </table>
+				<td>{{ devis.DEV_UTI.UTI_RUE}} {{ devis.DEV_UTI.UTI_NUMERORUE}}</td><br>
+				<td>{{ devis.DEV_UTI.UTI_CODEPOSTALE }} {{ devis.DEV_UTI.UTI_LOCALITE}}</td><br>
+				<td>{{ devis.DEV_UTI.UTI_NUMEROTEL}}</td><br>
+    			<td>{{ devis.DEV_UTI.UTI_EMAIL}}</td>
+
+    <hr>
+
+    <table>
+    	<tr>
+    		<th>Service</th>
+    		<th>Prix</th>
+            <th>Commentaire</th>
+    	</tr>
+    {% for asso in assos %}
+    	<tr>
+    		<td>{{ asso.ASD_SER_ID.SER_NOM }}</td>
+    		<td>{{ asso.ASD_PRIX_EFFECTIF }} CHF</td>
+            {% if asso.ASD_COMMENTAIRE %}
+                <td>{{ asso.ASD_COMMENTAIRE }}</td>
+            {% else %}
+                 <td></td>
+            {% endif %}
+    	</tr>
+    {% endfor %}
+    </table>
+
+    <hr>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/modifierProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Supprimer produit</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div>
+        <h1>Êtes-vous sur de vouloir supprimer le produit {{produit.PRO_NOM}} ? </h1>
+        <br> <br>
+        <form action="{% url 'supprimer_produit' produit.id %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Confirmer</button>
+        </form>
+         <a href="{% url 'detail' produit.id %}"><button>Annuler</button></a>
+    </div>
+    {% include 'footer.html '%}
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Créer un client</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Créer un nouveau client</h1><br>
+        <form action="{% url 'creerClient' %}" method="post">
+            {% csrf_token%}
+            <div class="row">
+                <div class="col-6">
+                    {{ form.UTI_PRENOM|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                    {{ form.UTI_NOM|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                     {{ form.UTI_EMAIL|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                     {{ form.UTI_DATENAISSANCE|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                     {{ form.UTI_NUMERORUE|as_crispy_field }}
+                </div>
+                <div class="col-4">
+                     {{ form.UTI_RUE|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                     {{ form.UTI_LOCALITE|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                     {{ form.UTI_NUMEROTEL|as_crispy_field }}
+                </div>
+            </div>
+            <input type="submit"  class="btn btn-success" value="Créer">
+        </form>
+    </div>
+
+</body>
+</html>

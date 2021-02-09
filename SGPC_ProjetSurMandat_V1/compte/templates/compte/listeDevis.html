@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    {% load compte_extras %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <title>Liste des devis</title>
+</head>
+<body>
+{% include 'nav.html' %}
+    <div class="container">
+    <br>
+        <form method="get">
+            {{dev_filtrer.form.as_p}} <input type="submit" class="btn btn-primary btn-sm" value="Filtrer">
+        </form>
+        {% if devis_page_obj %}
+        <div class="table-responsive-md" style="text-align: center;margin-top: 50px">
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Numéro de devis</th>
+                  <th scope="col">Nom du client</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for dev in devis_page_obj %}
+                <tr>
+                  <td>{{dev.id }}</td>
+                  <td>{{dev.DEV_UTI.UTI_NOM}} {{dev.DEV_UTI.UTI_PRENOM}}</td>
+                  <td>{{dev.DEV_DATE}}</td>
+                  <td><a href="{% url 'detail_devis' dev.id %}"><button class="btn btn-primary">Détail</button> </a> </td>
+              {% endfor %}
+              </tbody>
+            </table>
+            {% if devis_page_obj.has_previous %}
+              <a href="{% my_url devis_page_obj.previous_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page précédente</button></a>
+            {% endif %}
+            {% if devis_page_obj.has_next %}
+              <a href="{% my_url devis_page_obj.next_page_number 'page' request.GET.urlencode %}"><button class="btn btn-primary btn-sm">Page suivante</button></a>
+            {% endif %}
+        </div>
+    {% else %}
+            <br>
+            <h1>Ce client n'est pas de devis</h1>
+    {% endif %}
+    </div>
+</body>
+</html>

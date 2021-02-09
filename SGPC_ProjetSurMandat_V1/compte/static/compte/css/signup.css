@@ -1,0 +1,39 @@
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family:Bahnschrift;
+}
+
+
+
+
+.containerPage{
+  margin-top: 50px;
+}
+
+
+form {
+
+  padding: 10px;
+  text-align: left;
+  margin-left: 10%;
+}
+
+form label{
+  margin-bottom: 1.5%;
+}
+
+form input{
+  margin-bottom: 1.5%;
+}
+
+p {
+  min-font-size: 15px;
+
+  font-style: italic;
+}
+
+.asteriskField  {
+  color:red;
+}

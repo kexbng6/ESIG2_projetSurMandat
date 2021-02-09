@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/modifierReservation.css' %}" rel="stylesheet" type="text/css">
+    <title>Modification d'une réservation</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <div class="form-group">
+                <h1>Modifier la réservation</h1>
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+            <form action="{% url 'modif_reservation' reservation.id %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-4">
+                    {{ form.RES_DATE|as_crispy_field }}
+                </div>
+                <div class="col-4">
+                    {{ form.RES_STATUT|as_crispy_field }}
+                </div>
+                <div class="col-4">
+                    {{ form.RES_SER_ID|as_crispy_field }}
+                </div>
+            </div>
+                <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+            <a href="{% url 'admin' %}"><button class="btn btn-danger">Annuler</button></a><br>
+            <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <title>Liste Commande en préparation</title>
+</head>
+<body>
+{% include 'nav.html' %}
+    <div class="container">
+        <div class="table-responsive-md" style="text-align: center;margin-top: 50px">
+        <H1>Liste de mes réservation</H1>
+        <br>
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">date</th>
+                    <th scope="col">Nom du service</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col"></th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for res in reservation %}
+                <tr>
+                  <td>{{res.RES_DATE }}</td>
+                  <td>{{res.RES_SER_ID.SER_NOM}}</td>
+                  <td>{{res.RES_STATUT}}</td>
+                  <td><a href="{% url 'detail_RDV' res.id %}"><button class="btn btn-primary">Détail</button> </a> </td>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

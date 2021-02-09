@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Créer réservation</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Créer une nouvelle réservation</h1>
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+        <form action="{% url 'create_reservation' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {{ form.RES_DATE|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.RES_UTI_ID|as_crispy_field}}
+            </div>
+            <div class="col-6">
+                {{ form.RES_SER_ID|as_crispy_field}}
+            </div>
+        </div>
+            <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+            <input type="submit" class="btn btn-success" value="Créer">
+    </form>
+        <br>
+        <form action="{% url 'creerClient' %}">
+            <input class="btn btn-primary" type="submit" value="Nouveau client ?" />
+        </form>
+    </div>
+<!--    {% include 'footer.html '%}-->
+</body>
+</html>

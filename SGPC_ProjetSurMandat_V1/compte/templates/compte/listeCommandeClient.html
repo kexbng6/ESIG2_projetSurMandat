@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    <!-- load du css de bootstrap -->
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    <title>Liste Commande en préparation</title>
+</head>
+<body>
+{% include 'nav.html' %}
+    <div class="container">
+    {% if nbCommande == 0 %}
+        <h1>Le client n'a pas de commandes...</h1>
+    {% else %}
+        <div class="table-responsive-md" style="text-align: center;margin-top: 50px">
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Numéro de commande</th>
+                  <th scope="col">Nom du client</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col"></th>
+
+                </tr>
+              </thead>
+              <tbody>
+              {% for com in commande %}
+                <tr>
+                  <td>{{com.id }}</td>
+                  <td>{{com.COM_UTI_ID.UTI_NOM}}</td>
+                  <td>{{com.COM_DATE}}</td>
+                  <td>{{com.COM_STATUT}}</td>
+                  <td><a href="{% url 'ajouterCommandeRDV' reservation.id com.id %}"><button class="btn btn-primary">Ajouter à cette commande</button> </a> </td>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% endif %}
+    </div>
+</body>
+</html>

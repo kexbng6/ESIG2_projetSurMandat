@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'compte/images/SGPC.PNG' %}"/>
+    {% load bootstrap4 %}
+    <meta charset="UTF-8">
+    {% bootstrap_css %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'compte/css/creerProduit.css' %}" rel="stylesheet" type="text/css">
+    <title>Créer une catégorie</title>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container">
+        <h1>Créer une nouvelle catégorie</h1><br>
+        <form action="{% url 'creerMarque' %}" method="post">
+            {% csrf_token%}
+            <div class="row">
+                <div class="col-6">
+                    {{ form.CAT_NOM|as_crispy_field }}
+                </div>
+            </div>
+            <input type="submit"  class="btn btn-success" value="Créer">
+        </form>
+    </div>
+</body>
+</html>
