@@ -21,39 +21,50 @@ const hover = function (){
 function showPopup() {
     if (document.getElementById('popup')== null){
 
-    var divPop = document.createElement("div");
-    var titre = document.createElement("p");
-    titre.setAttribute('id', 'titre');
-    var textTitre = document.createTextNode("Frais de livraison");
-    titre.appendChild(textTitre);
+        var tableau = document.querySelector('table');
+        tableau.innerHTML = `
+        <div id="popup">
+            <p id="titre">Frais de livraison</p>
+            <hr>
+            <p>Commande comportant un total de produits inférieur ou égal à 5: 5.- CHF, supérieur à 5 et inférieur à 10: 10.- CHF, supérieur à 10: 15.- CHF</p>
+            <p id="close">Fermer</p>
+        </div> 
+        `;
 
-    var barre = document.createElement("hr");
-    var para = document.createElement('p');
-    var text = document.createTextNode("Commande comportant un total de produits inférieur ou égal à 5: 5.- CHF, supérieur à 5 et inférieur à 10: 10.- CHF, supérieur à 10: 15.- CHF");
+        // var blur = document.createElement("div");
+        // blur.setAttribute("id", "blur");
+        //
+        // var divPop = document.createElement("div");
+        // var titre = document.createElement("p");
+        // titre.setAttribute('id', 'titre');
+        // var textTitre = document.createTextNode("Frais de livraison");
+        // titre.appendChild(textTitre);
+        //
+        // var barre = document.createElement("hr");
+        // var para = document.createElement('p');
+        // var text = document.createTextNode("Commande comportant un total de produits inférieur ou égal à 5: 5.- CHF, supérieur à 5 et inférieur à 10: 10.- CHF, supérieur à 10: 15.- CHF");
+        //
+        // para.appendChild(text);
+        // divPop.setAttribute('id','popup');
+        // divPop.appendChild(titre)
+        // divPop.appendChild(barre)
+        // divPop.appendChild(para);
+        // blur.appendChild(divPop);
+        //
+        // var btnClose = document.createElement("p");
+        // var textClose = document.createTextNode("Fermer");
+        // btnClose.appendChild(textClose);
+        // btnClose.setAttribute('id','close');
+        //
+        // divPop.appendChild(btnClose);
+        //
+        // var tableau = document.querySelector('table');
+        // tableau.appendChild(divPop);
 
-    para.appendChild(text);
-    divPop.setAttribute('id','popup');
-    divPop.appendChild(titre)
-    divPop.appendChild(barre)
-    divPop.appendChild(para);
-
-    var btnClose = document.createElement("p");
-    var textClose = document.createTextNode("Fermer");
-    btnClose.appendChild(textClose);
-    btnClose.setAttribute('id','close');
-
-    divPop.appendChild(btnClose);
-
-    var tableau = document.querySelector('table');
-    tableau.appendChild(divPop);
-
-    const bttnClose = document.getElementById('close');
-    bttnClose.addEventListener('click',closePopup);
+        const bttnClose = document.getElementById('close');
+        bttnClose.addEventListener('click',closePopup);
     }
 
-
-
-    console.log()
 
 }
 
