@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from .forms import loginForm, UtilisateurForm, ClientForm, NumeroSuivi
 from django.contrib.auth.forms import UserChangeForm
 from . import forms
-from activatable_model.models import BaseActivatableModel
+#from activatable_model.models import BaseActivatableModel
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -22,9 +22,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.views import View
-from io import BytesIO
-from django.template.loader import get_template
-from xhtml2pdf import pisa
+#from io import BytesIO
+#from django.template.loader import get_template
+#from xhtml2pdf import pisa
 from datetime import date, datetime
 
 # Create your views here.
@@ -77,7 +77,7 @@ def signUpView(request):
 def adminView(request):
     aujourdhui = _datetime.date.today() #Récupération de la date du jour
     utilisateurs = SGPC_Utilisateur.objects.all() # Récupération de tous les utilisateurs présents dans la base de données
-    services = SGPC_SERVICE.objects.all() # Récupération de tous les services présents dans la base de données
+    #services = SGPC_SERVICE.objects.all() # Récupération de tous les services présents dans la base de données
     parametres = SGPC_PARAMETRES.objects.all() # Récupération de tous les paramètres
 
     commandesEnPrep = SGPC_COMMANDE.objects.filter(COM_STATUT='En préparation').order_by('-COM_DATE')[:10] # Récupération de tous les commandes ayant comme status "En préparation"
@@ -89,7 +89,7 @@ def adminView(request):
     produitsStockAlert = SGPC_PRODUIT.objects.filter(PRO_QUANTITESTOCK__lte=10)
     context = {
         'utilisateurs': utilisateurs,
-        'services': services,
+        #'services': services,
         'commandesEnPrep': commandesEnPrep,
         'commandesExpediees':commandesExpediees,
         'reservations': reservations,
@@ -212,9 +212,9 @@ def detailRDV(request, pk):
     }
     if reservation.RES_DEV_ID_id: # Test pour savoir si la réservation à un numéro de devis
         devis = SGPC_DEVIS.objects.get(id=reservation.RES_DEV_ID_id) # Récupération des informations du devis ayant le meme id que l'ID du devis dans réservation
-        assos = SGPC_ASSO_SER_DEV.objects.filter(ASD_DEV_ID_id=devis.id) # Récupération des informations de la classe d'association entre devis et service avec l'id du devis.
+        #assos = SGPC_ASSO_SER_DEV.objects.filter(ASD_DEV_ID_id=devis.id) # Récupération des informations de la classe d'association entre devis et service avec l'id du devis.
         context = {'devis': devis,
-                    'assos': assos,
+                    #'assos': assos,
                    'reservation': reservation,}
     return render(request, 'compte/detailReservation.html', context)
 
@@ -222,21 +222,21 @@ def detailRDV(request, pk):
 def detailCommande(request, pk):
     parametre = SGPC_PARAMETRES.objects.get(id=1)
     commande = SGPC_COMMANDE.objects.get(id=pk) # Récupération de la commande ayant le même id que le paramètres "pk"
-    assos = SGPC_ASSO_COM_PRO.objects.all().filter(ACP_COMMANDE_id=pk) # Récupération des informations présente dans la table d'association entre commande et produit en utilisateur l'id de la commande.
+    #assos = SGPC_ASSO_COM_PRO.objects.all().filter(ACP_COMMANDE_id=pk) # Récupération des informations présente dans la table d'association entre commande et produit en utilisateur l'id de la commande.
     reservation = SGPC_RESERVATION.objects.all().filter(RES_COM_ID_id=commande.id) # Récupération des réservations ayant comme le même id de commande
 
     context = {
         'commande': commande,
-        'assos': assos,
+        #'assos': assos,
         'reservation': reservation,
     }
     for res in reservation: # On parcourt tous les réservations pour savoir s'il y un numéro de devis, afin de pouvoir afficher le numéro de devis et les informations présente dans la classe d'assocition "ASSO_SER_DEV"
-        assoDev = SGPC_ASSO_SER_DEV.objects.filter(ASD_DEV_ID_id=res.RES_DEV_ID_id)
+        #assoDev = SGPC_ASSO_SER_DEV.objects.filter(ASD_DEV_ID_id=res.RES_DEV_ID_id)
         context = {
             'commande': commande,
-            'assos': assos,
+        #    'assos': assos,
             'reservation': reservation,
-            'assoDev': assoDev,
+         #   'assoDev': assoDev,
         }
     if commande.COM_FACTURE_STATUT != None:
         if commande.COM_FACTURE_STATUT != "Payée":
@@ -251,14 +251,14 @@ def detailCommande(request, pk):
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 def detailDevis(request, pk):
     devis = SGPC_DEVIS.objects.get(id=pk) # Récupération du devis ayant le même id que le paramètre "pk"
-    assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=pk) # Récupération des informations dans la table "ASSO_SER_DEV" qui ont le meme id que devis dans l'attribut "ASD_DEV_ID"
+    #assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=pk) # Récupération des informations dans la table "ASSO_SER_DEV" qui ont le meme id que devis dans l'attribut "ASD_DEV_ID"
     reservation = SGPC_RESERVATION.objects.all().filter(Q(RES_DEV_ID_id=devis.id)) # Récupération de toutes les réservations qui ont le meme id que devis dans l'attribut "RES_DEV_ID"
     listRes = [] # Création d'une liste
     for res in reservation: #On parcourt toutes les réservations afin de stocker tous id des services présent dans les réservations.
         listRes.append(res.RES_SER_ID_id)
     context = {
         'devis': devis,
-        'assos': assos,
+     #   'assos': assos,
         'reservation': reservation,
         'listRes':listRes,
     }
@@ -451,45 +451,45 @@ def rechercheProduit(request):
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 @user_passes_test(lambda u: u.UTI_is_admin) #inspirer de https://stackoverflow.com/questions/21649439/redirecting-user-passes-testlambda-u-u-is-superuser-if-not-a-superuser-to-an
 def creerDevis(request):
-    DevisFormSet = inlineformset_factory(SGPC_DEVIS, SGPC_ASSO_SER_DEV, extra=5, can_delete = False,
-                                         fields=('ASD_SER_ID', 'ASD_PRIX_EFFECTIF', 'ASD_COMMENTAIRE'),
-                                         labels={'ASD_SER_ID':'Services','ASD_PRIX_EFFECTIF':'Prix effectif','ASD_COMMENTAIRE':'Commentaire'})
+    #DevisFormSet = inlineformset_factory(SGPC_DEVIS, SGPC_ASSO_SER_DEV, extra=5, can_delete = False,
+    #                                     fields=('ASD_SER_ID', 'ASD_PRIX_EFFECTIF', 'ASD_COMMENTAIRE'),
+    #                                     labels={'ASD_SER_ID':'Services','ASD_PRIX_EFFECTIF':'Prix effectif','ASD_COMMENTAIRE':'Commentaire'})
     # Création du formulaire afin de pouvoir enregistré les informations dans les tables d'association "SGPC_ASSO_SER_DEV"
     #Inspiré de la vidéo de Dennis Ivy youtube sur Inline Formset (https://www.youtube.com/watch?v=MRWFg30FmZQ)
-    if request.method == 'POST':
-        form = forms.creerDevis(request.POST) # Récupération du formulaire de création de devis.
-        formset = DevisFormSet(request.POST) # Récupération du formulaire créer en première ligne
-        if form.is_valid():
-            obj=form.save()
-            formset = DevisFormSet(request.POST, instance=obj)
-            emailUTI = obj.DEV_UTI.UTI_EMAIL
-            if formset.is_valid():
-                for f in formset: #Pour les formset dans formset
-                    obj = f.save(commit=False)
-                    ser = f.cleaned_data.get('ASD_SER_ID') # On récupère l'id du service entré dans le formulaire
-                    if ser==None: #Test pour savoir si le champ a été rempli
-                        break # S'il n'a pas été rempli, il sort de la boucle car il marque la fin du formulaire
-                    ser = obj.ASD_SER_ID # On stock le numero du service
-                    prix = obj.ASD_PRIX_EFFECTIF # On stock le prix entré par l'admin
-                    if prix==None:# Test pour savoir si un prix pour le service à été renseigner.
-                        service = SGPC_SERVICE.objects.get(SER_NOM=ser)
-                        obj.ASD_PRIX_EFFECTIF = service.SER_PRIX_STANDARD # Si le prix n'a pas été renseigner, on prend le prix standard du service correspondant à la demande.
-                    obj.save()
-                send_mail('Votre demande de devis',
-                          'Bonjour, \n \nVotre devis n°' + str(
-                              numeroDevis) + ' vous attend dans votre espace client !\n \n SG PERFORMANCES CUSTOMS',
-                          settings.EMAIL_HOST_USER,
-                          [emailUTI],
-                          fail_silently=False)
-                return redirect('admin')
-    else:
-        form = forms.creerDevis(request.POST)
-        formset = DevisFormSet()
-    context = {
-              'form': form,
-              'formset': formset,
-         }
-    return render(request, 'compte/creerDevis.html', context)
+   #  if request.method == 'POST':
+   #      form = forms.creerDevis(request.POST) # Récupération du formulaire de création de devis.
+   #  #    formset = DevisFormSet(request.POST) # Récupération du formulaire créer en première ligne
+   #      if form.is_valid():
+   #          obj=form.save()
+   # #         formset = DevisFormSet(request.POST, instance=obj)
+   #          emailUTI = obj.DEV_UTI.UTI_EMAIL
+   #          if formset.is_valid():
+   #              for f in formset: #Pour les formset dans formset
+   #                  obj = f.save(commit=False)
+   #                  ser = f.cleaned_data.get('ASD_SER_ID') # On récupère l'id du service entré dans le formulaire
+   #                  if ser==None: #Test pour savoir si le champ a été rempli
+   #                      break # S'il n'a pas été rempli, il sort de la boucle car il marque la fin du formulaire
+    #                 ser = obj.ASD_SER_ID # On stock le numero du service
+    #                 prix = obj.ASD_PRIX_EFFECTIF # On stock le prix entré par l'admin
+    #                 if prix==None:# Test pour savoir si un prix pour le service à été renseigner.
+    #                     service = SGPC_SERVICE.objects.get(SER_NOM=ser)
+    #                     obj.ASD_PRIX_EFFECTIF = service.SER_PRIX_STANDARD # Si le prix n'a pas été renseigner, on prend le prix standard du service correspondant à la demande.
+    #                 obj.save()
+    #             send_mail('Votre demande de devis',
+    #                       'Bonjour, \n \nVotre devis n°' + str(
+    #                           numeroDevis) + ' vous attend dans votre espace client !\n \n SG PERFORMANCES CUSTOMS',
+    #                       settings.EMAIL_HOST_USER,
+    #                       [emailUTI],
+    #                       fail_silently=False)
+    #             return redirect('admin')
+    # else:
+    #     form = forms.creerDevis(request.POST)
+    #     formset = DevisFormSet()
+    # context = {
+    #           'form': form,
+    #           'formset': formset,
+    #      }
+    return render(request, 'compte/creerDevis.html')#, context)
 
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 @user_passes_test(lambda u: u.UTI_is_admin) #inspirer de https://stackoverflow.com/questions/21649439/redirecting-user-passes-testlambda-u-u-is-superuser-if-not-a-superuser-to-an
@@ -648,7 +648,7 @@ def reactiverCategorie(request, pk):
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 def creerDevisReservation(request, pk, serID): #Création d'un réservation à partir d'un devis
     devis = SGPC_DEVIS.objects.get(id=pk) # Récupéation du devis ayant le même id que le paramètre "pk"
-    asso = SGPC_ASSO_SER_DEV.objects.get(ASD_DEV_ID_id=devis.id, ASD_SER_ID_id=serID) # Récupération des données dans la classe d'association "SGPC_SER_DEV_ID" dont l'id du devis correspont à l'id du devis récupérer ci-dessus ainsi que l'id du service correspondant au paramètre "serID"
+   # asso = SGPC_ASSO_SER_DEV.objects.get(ASD_DEV_ID_id=devis.id, ASD_SER_ID_id=serID) # Récupération des données dans la classe d'association "SGPC_SER_DEV_ID" dont l'id du devis correspont à l'id du devis récupérer ci-dessus ainsi que l'id du service correspondant au paramètre "serID"
     parametre = SGPC_PARAMETRES.objects.get(id=1)
     if request.method == 'POST':
         form = forms.creerReservationDevis(request.POST) # Récupération du formulaire de création de réservation à partir d'un devis
@@ -657,7 +657,7 @@ def creerDevisReservation(request, pk, serID): #Création d'un réservation à p
             nbReservation = SGPC_RESERVATION.objects.filter(RES_DATE=obj.RES_DATE).count() # Filtre afin d'obtenir le nombre de réservation présente à la date choisi par l'utilisateur dans son formulaire
             if nbReservation < parametre.PAR_NBMAX_RDV_JOUR:
                 obj.RES_UTI_ID_id = devis.DEV_UTI_id # l'id du client pour la réservation est le même que celui du devis
-                obj.RES_SER_ID_id = asso.ASD_SER_ID_id # L'id du service est passé dans la réservation
+       #         obj.RES_SER_ID_id = asso.ASD_SER_ID_id # L'id du service est passé dans la réservation
                 obj.RES_DEV_ID_id = devis.id # L'id du devis est passé dans dans la réservation
                 if obj.RES_UTI_ID.UTI_is_admin:
                     obj.RES_STATUT = "Confirmé"  # Statut de la réservation confirmé
@@ -693,7 +693,7 @@ def creerDevisReservation(request, pk, serID): #Création d'un réservation à p
     context = {
         'form': form,
         'devis': devis,
-        'asso': asso,
+    #    'asso': asso,
     }
     return render(request, 'compte/creerDevisReservation.html', context)
 
@@ -848,28 +848,28 @@ def modifParametre(request, pk):
    return render(request, "compte/modifParametre.html", context)
 
 #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
-def render_to_pdf(template_src, context_dict={}):
-    template = get_template(template_src)
-    html = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None
-
-#inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
-class devisPDF(View):
-    def get(self, request, id, *args, **kwargs):
-        devis = SGPC_DEVIS.objects.get(id=id)
-        assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=id)
-        reservation = SGPC_RESERVATION.objects.all().filter(RES_DEV_ID_id=devis.id)
-        data = {
-            "devis": devis,
-            "assos": assos,
-            "reservation":reservation,
-        }
-        pdf = render_to_pdf('compte/devis_pdf.html', data)
-        return HttpResponse(pdf, content_type='application/pdf')
+# def render_to_pdf(template_src, context_dict={}):
+#     template = get_template(template_src)
+#     html = template.render(context_dict)
+#     result = BytesIO()
+#     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+#     if not pdf.err:
+#         return HttpResponse(result.getvalue(), content_type='application/pdf')
+#     return None
+#
+# #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
+# class devisPDF(View):
+#     def get(self, request, id, *args, **kwargs):
+#         devis = SGPC_DEVIS.objects.get(id=id)
+#       #  assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=id)
+#         reservation = SGPC_RESERVATION.objects.all().filter(RES_DEV_ID_id=devis.id)
+#         data = {
+#             "devis": devis,
+#       #      "assos": assos,
+#             "reservation":reservation,
+#         }
+#         pdf = render_to_pdf('compte/devis_pdf.html', data)
+#         return HttpResponse(pdf, content_type='application/pdf')
 
 
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw

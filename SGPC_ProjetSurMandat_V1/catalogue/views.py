@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 #from activatable_model.models import BaseActivatableModel
-from cart.cart import Cart
+#from cart.cart import Cart
 from catalogue.models import SGPC_PRODUIT, SGPC_COMMANDE, SGPC_ASSO_COM_PRO, SGPC_PARAMETRES, SGPC_MARQUE, SGPC_CATEGORIE
 from service.models import SGPC_RESERVATION#, SGPC_ASSO_SER_DEV
 from django.contrib import messages
@@ -16,9 +16,9 @@ from django.views.decorators.csrf import csrf_exempt#, requires_csrf_token
 from django.contrib.auth.decorators import login_required#, user_passes_test
 from django.http import HttpResponse
 from django.views import View
-from io import BytesIO
-from django.template.loader import get_template
-from xhtml2pdf import pisa
+#from io import BytesIO
+#from django.template.loader import get_template
+#from xhtml2pdf import pisa
 
 
 
@@ -63,7 +63,7 @@ def detail(request, produit_id):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def ajouterPanier(request, id):
-    panier = Cart(request)
+    panier = []#Cart(request)
     produit = SGPC_PRODUIT.objects.get(id=id)
     panier.add(product=produit)
     messages.success(request, 'Le produit a été ajouté au panier')
@@ -72,7 +72,7 @@ def ajouterPanier(request, id):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def detailPanier(request):
-    panier = Cart(request).cart.values()
+    panier = []#Cart(request).cart.values()
     commande = []
 
     for prod in panier:
@@ -90,7 +90,7 @@ def detailPanier(request):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def augmenterNbProduit(request, id):
-    panier = Cart(request)
+    panier = []#Cart(request)
     produit = SGPC_PRODUIT.objects.get(id=id)
     panier.add(product=produit)
     return redirect("detailPanier")
@@ -98,7 +98,7 @@ def augmenterNbProduit(request, id):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def diminuerNbProduit(request, id):
-    panier = Cart(request)
+    panier = []#Cart(request)
     produit = SGPC_PRODUIT.objects.get(id=id)
     panier.decrement(product=produit)
     return redirect("detailPanier")
@@ -106,7 +106,7 @@ def diminuerNbProduit(request, id):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def supprimerProduitPanier(request, id):
-    panier = Cart(request)
+    panier = []#Cart(request)
     produit = SGPC_PRODUIT.objects.get(id=id)
     panier.remove(produit)
     return redirect("detailPanier")
@@ -114,14 +114,14 @@ def supprimerProduitPanier(request, id):
 # inspiré de https://pypi.org/project/django-shopping-cart/
 @login_required(login_url="/login/")
 def viderPanier(request):
-    panier = Cart(request)
+    panier = []#Cart(request)
     panier.clear()
     return redirect("detailPanier")
 
 @login_required(login_url="/login/")
 def resumerCommande(request):
     parametre = SGPC_PARAMETRES.objects.get(id=1)
-    panier = Cart(request).cart.values()
+    panier = []#Cart(request).cart.values()
     commande = []
     nbProduit = 0
 
@@ -161,7 +161,7 @@ def resumerCommande(request):
 def creerCommandeProduit(request):
     global com_pro
     user = request.user
-    panier = Cart(request).cart.values()
+    panier = []#Cart(request).cart.values()
     nbProduitCom = []
     parametre = SGPC_PARAMETRES.objects.get(id=1)
     nbProduit = 0
@@ -193,7 +193,7 @@ def creerCommandeProduit(request):
                 quantiteStockProduit.PRO_QUANTITESTOCK -= prod.get("quantity")
                 quantiteStockProduit.save()
 
-            Cart(request).clear()
+#            Cart(request).clear()
             context = {
                 "com_pro": com_pro,
             }
@@ -234,12 +234,12 @@ def search(request): # Inspiré de la vidéo de ALL IN ONE CODE (https://www.you
 
 #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
 def render_to_pdf(template_src, context_dict={}):
-    template = get_template(template_src)
-    html = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    # template = get_template(template_src)
+    # html = template.render(context_dict)
+    # result = BytesIO()
+#    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+#     if not pdf.err:
+#         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
 #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
 class ViewPDF(View):
