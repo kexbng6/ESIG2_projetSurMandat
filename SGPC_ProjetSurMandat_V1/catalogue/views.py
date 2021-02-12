@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
-from activatable_model.models import BaseActivatableModel
+#from activatable_model.models import BaseActivatableModel
 from cart.cart import Cart
 from catalogue.models import SGPC_PRODUIT, SGPC_COMMANDE, SGPC_ASSO_COM_PRO, SGPC_PARAMETRES, SGPC_MARQUE, SGPC_CATEGORIE
 from service.models import SGPC_RESERVATION#, SGPC_ASSO_SER_DEV
 from django.contrib import messages
 from django.utils import timezone
 from .filters import ProduitFilter
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator#, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 
-from compte.models import SGPC_Utilisateur
+#from compte.models import SGPC_Utilisateur
 
-from django.views.decorators.csrf import csrf_exempt, requires_csrf_token
+from django.views.decorators.csrf import csrf_exempt#, requires_csrf_token
 
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required#, user_passes_test
 from django.http import HttpResponse
 from django.views import View
 from io import BytesIO
@@ -272,17 +272,17 @@ class ViewPDF(View):
                 }
 
             else :
-                assoDev = SGPC_ASSO_SER_DEV.objects.filter(Q(ASD_DEV_ID_id=res.RES_DEV_ID_id, ASD_SER_ID_id=res.RES_SER_ID_id))
-
-                for dev in assoDev:
-                    commandeTot += dev.ASD_PRIX_EFFECTIF
+                # assoDev = SGPC_ASSO_SER_DEV.objects.filter(Q(ASD_DEV_ID_id=res.RES_DEV_ID_id, ASD_SER_ID_id=res.RES_SER_ID_id))
+                #
+                # for dev in assoDev:
+                #     commandeTot += dev.ASD_PRIX_EFFECTIF
 
 
                 data = {
                     'commande': commande,
                     'assos': assos,
                     'reservation': reservation,
-                    'assoDev': assoDev,
+                    # 'assoDev': assoDev,
                     "commandeTot": commandeTot,
                     "tauxTVA": tauxTVA,
                 }
