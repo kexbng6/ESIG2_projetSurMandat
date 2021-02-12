@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'compte.apps.CompteConfig',
     'catalogue.apps.CatalogueConfig',
     'service.apps.ServiceConfig',
-    'cart',
+    #'cart',
     'django_filters',
     'bootstrap4',
     'crispy_forms',

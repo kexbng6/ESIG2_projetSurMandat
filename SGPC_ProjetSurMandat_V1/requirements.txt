@@ -10,7 +10,6 @@ django-crispy-forms==1.9.2
 django-filter==2.3.0
 django-manager-utils==1.4.0
 django-query-builder==1.2.0
-django-shopping-cart==0.1
 imagesize==1.2.0
 mysqlclient==2.0.1
 pguard==0.4.0
