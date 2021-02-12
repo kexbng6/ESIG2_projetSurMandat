@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'catalogue.apps.CatalogueConfig',
     'service.apps.ServiceConfig',
     #'cart',
-    'django_filters',
-    'bootstrap4',
-    'crispy_forms',
+    #'django_filters',
+    #'bootstrap4',
+    #'crispy_forms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
