@@ -23,16 +23,13 @@ span{
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 40%;
     padding: 20px;
     box-shadow: 0 5px 30px black;
     background-color: papayawhip;
     z-index: 10;
 }
 
-#normal{
-
-}
 #titre{
     font-weight: bold;
 }
@@ -45,9 +42,19 @@ span{
 }
 
 #close{
+    margin-left: 80%;
     border: black 1px solid;
     background-color: black;
     color: aliceblue;
     padding: 2%;
-    width: 14%;
+    width: 16%;
+}
+
+#close:hover{
+    margin-left: 80%;
+    border: black 1px solid;
+    background-color: aliceblue;
+    color: black;
+    padding: 2%;
+    width: 16%;
 }

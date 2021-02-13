@@ -1,4 +1,4 @@
-#import django_filters
+import django_filters
 
 from catalogue.models import SGPC_PRODUIT, SGPC_MARQUE, SGPC_CATEGORIE, SGPC_COMMANDE
 
@@ -6,9 +6,9 @@ from service.models import SGPC_DEVIS, SGPC_RESERVATION
 
 from django.forms.widgets import TextInput
 
-#from django_filters import DateRangeFilter,DateFilter
+from django_filters import DateRangeFilter,DateFilter
 from django import forms
-#import datetime as dt
+import datetime as dt
 
 
 class DateInput(forms.DateInput):

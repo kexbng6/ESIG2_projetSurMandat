@@ -48,7 +48,7 @@ urlpatterns = [
     url(r'listeCommande/', views.listeCommande, name="listeCommande"),
     path('creerCommandeRDV/<str:pk>', views.creerCommandeRDV, name="creerCommandeRDV"),
     path('ajouterCommandeRDV/<str:pk>/<str:comID>', views.ajouterCommandeRDV, name="ajouterCommandeRDV"),
-#    path('devisPDF/<int:id>/', views.devisPDF.as_view(), name="devisPDF"),#inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
+    path('devisPDF/<int:id>/', views.devisPDF.as_view(), name="devisPDF"),#inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
     path('numeroSuivi/<str:id>/', views.numeroSuivi, name="numeroSuivi"),
     path('listeCommandeOuverte/<str:pk>/', views.listeCommandeOuverte, name="listeCommandeOuverte"),
     path('ajouterCommandeProd/<str:pk>/<str:comID>', views.ajouterCommandeProd, name="ajouterCommandeProd"),

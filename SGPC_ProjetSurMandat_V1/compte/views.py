@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from .forms import loginForm, UtilisateurForm, ClientForm, NumeroSuivi
 from django.contrib.auth.forms import UserChangeForm
 from . import forms
-#from activatable_model.models import BaseActivatableModel
+from activatable_model.models import BaseActivatableModel
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,16 +15,16 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .decorators import unauthenticated_user
 from service.models import SGPC_RESERVATION, SGPC_DEVIS#, SGPC_ASSO_SER_DEV, SGPC_SERVICE
-#import _datetime
+import _datetime
 from django.forms import inlineformset_factory
-#from .filters import ProduitFilter, CommandeFiltrer, DevisFiltrer, rdvFilter
+from .filters import ProduitFilter, CommandeFiltrer, DevisFiltrer, rdvFilter
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.views import View
-#from io import BytesIO
-#from django.template.loader import get_template
-#from xhtml2pdf import pisa
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from datetime import date, datetime
 
 # Create your views here.
@@ -848,28 +848,28 @@ def modifParametre(request, pk):
    return render(request, "compte/modifParametre.html", context)
 
 #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
-# def render_to_pdf(template_src, context_dict={}):
-#     template = get_template(template_src)
-#     html = template.render(context_dict)
-#     result = BytesIO()
-#     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-#     if not pdf.err:
-#         return HttpResponse(result.getvalue(), content_type='application/pdf')
-#     return None
-#
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
 # #inspiré de https://www.youtube.com/watch?v=5umK8mwmpWM
-# class devisPDF(View):
-#     def get(self, request, id, *args, **kwargs):
-#         devis = SGPC_DEVIS.objects.get(id=id)
-#       #  assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=id)
-#         reservation = SGPC_RESERVATION.objects.all().filter(RES_DEV_ID_id=devis.id)
-#         data = {
-#             "devis": devis,
-#       #      "assos": assos,
-#             "reservation":reservation,
-#         }
-#         pdf = render_to_pdf('compte/devis_pdf.html', data)
-#         return HttpResponse(pdf, content_type='application/pdf')
+class devisPDF(View):
+    def get(self, request, id, *args, **kwargs):
+        devis = SGPC_DEVIS.objects.get(id=id)
+      #  assos = SGPC_ASSO_SER_DEV.objects.all().filter(ASD_DEV_ID_id=id)
+        reservation = SGPC_RESERVATION.objects.all().filter(RES_DEV_ID_id=devis.id)
+        data = {
+            "devis": devis,
+      #      "assos": assos,
+            "reservation":reservation,
+        }
+        pdf = render_to_pdf('compte/devis_pdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
