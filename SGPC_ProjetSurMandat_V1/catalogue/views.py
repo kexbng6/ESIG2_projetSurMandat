@@ -1,24 +1,24 @@
 from django.shortcuts import render, redirect
-#from activatable_model.models import BaseActivatableModel
-#from cart.cart import Cart
+from activatable_model.models import BaseActivatableModel
+from cart.cart import Cart
 from catalogue.models import SGPC_PRODUIT, SGPC_COMMANDE, SGPC_ASSO_COM_PRO, SGPC_PARAMETRES, SGPC_MARQUE, SGPC_CATEGORIE
 from service.models import SGPC_RESERVATION#, SGPC_ASSO_SER_DEV
 from django.contrib import messages
 from django.utils import timezone
-#from .filters import ProduitFilter
+from .filters import ProduitFilter
 from django.core.paginator import Paginator#, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 
-#from compte.models import SGPC_Utilisateur
+from compte.models import SGPC_Utilisateur
 
 from django.views.decorators.csrf import csrf_exempt#, requires_csrf_token
 
 from django.contrib.auth.decorators import login_required#, user_passes_test
 from django.http import HttpResponse
 from django.views import View
-#from io import BytesIO
-#from django.template.loader import get_template
-#from xhtml2pdf import pisa
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 

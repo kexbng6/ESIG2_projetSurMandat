@@ -1,66 +1,37 @@
 /*
-https://stackoverflow.com/questions/45215699/django-javascript-hidden-div-dynamically-updated
-https://stackoverflow.com/questions/33473154/toggle-element-by-numerical-value-of-data-attribute-in-django-template
-https://stackoverflow.com/questions/26107125/cannot-read-property-addeventlistener-of-null
-https://www.w3schools.com/js/js_htmldom_elements.asp
-https://www.w3schools.com/js/js_htmldom_nodes.asp
-https://developer.mozilla.org/fr/docs/Web/API/GlobalEventHandlers/onload
-https://developer.mozilla.org/fr/docs/Web/API/Element/classList
-https://developer.mozilla.org/en-US/docs/Web/API/HTMLDetailsElement/toggle_event
+Sources:
+-https://stackoverflow.com/questions/26107125/cannot-read-property-addeventlistener-of-null
+-https://www.w3schools.com/js/js_htmldom_elements.asp
+-https://www.w3schools.com/js/js_htmldom_nodes.asp
+-https://developer.mozilla.org/fr/docs/Web/API/ChildNode/remove
+-https://developer.mozilla.org/fr/docs/Web/API/Document/getElementById
+-https://developer.mozilla.org/fr/docs/Web/API/Node/appendChild
+-https://developer.mozilla.org/fr/docs/Web/API/Document/querySelector
 */
-
-/*
-const hover = function (){
-        const buttons = document.querySelectorAll('span');
-        buttons.forEach((btn) => {
-        btn.addEventListener('mouseover', showPopup);
-    })
-*/
-
 
 function showPopup() {
     if (document.getElementById('popup')== null){
-
-        var sub = document.createElement('div');
-
-        sub.innerHTML = `
+        var popup = document.createElement('div');
+        popup.innerHTML = `
         <div id="popup">
             <p id="titre">Frais de livraison</p>
             <hr>
-            <p>Commande comportant un total de produits inférieur ou égal à 5: 5.- CHF</p>
-            <p>supérieur à 5 et inférieur à 10: 10.- CHF</p>
-            <p>supérieur à 10: 15.- CHF</p>
+            <p>Commande comportant un total de produits inférieur ou égal à 5 articles: 5.- CHF</p>
+            <p>Entre 5 et 10 articles: 10.- CHF</p>
+            <p>Supérieur à 10 articles: 15.- CHF</p>
             <p id="close">Fermer</p>
         </div>`;
-
-        var body = document.querySelector('body');
-
-        var divContainer = document.getElementById('divContainer');
-        divContainer.setAttribute('id', 'blur');
-
-        body.appendChild(sub)
-
+        const body = document.querySelector('body');
+        document.getElementById('divContainer').setAttribute('id', 'blur');
+        body.appendChild(popup);
         const bttnClose = document.getElementById('close');
         bttnClose.addEventListener('click',closePopup);
     }
-
-
 }
-
 function closePopup() {
     var divPop = document.getElementById('popup');
-
-    var divContient = document.getElementById('blur');
-    divContient.setAttribute('id','divContainer');
-
+    document.getElementById('blur').setAttribute('id','divContainer');
     divPop.remove();
 }
-
-
 const btn = document.querySelector('strong');
 btn.addEventListener('click', showPopup);
-
-
-
-
-/*window.onload = clickOpen*/
