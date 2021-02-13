@@ -1,5 +1,6 @@
 /*
 Sources:
+-https://www.youtube.com/watch?v=snhpoxtLugU
 -https://stackoverflow.com/questions/26107125/cannot-read-property-addeventlistener-of-null
 -https://www.w3schools.com/js/js_htmldom_elements.asp
 -https://www.w3schools.com/js/js_htmldom_nodes.asp
@@ -25,10 +26,10 @@ function showPopup() {
         document.getElementById('divContainer').setAttribute('id', 'blur');
         body.appendChild(popup);
         const bttnClose = document.getElementById('close');
-        bttnClose.addEventListener('click',closePopup);
+        bttnClose.addEventListener('click', closePopup);
     }
 }
-function closePopup() {
+var closePopup = function (){
     var divPop = document.getElementById('popup');
     document.getElementById('blur').setAttribute('id','divContainer');
     divPop.remove();
