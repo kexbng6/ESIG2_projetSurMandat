@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'compte.apps.CompteConfig',
     'catalogue.apps.CatalogueConfig',
     'service.apps.ServiceConfig',
-    #'cart',
-    #'django_filters',
-    #'bootstrap4',
-    #'crispy_forms',
+    'cart',
+    'django_filters',
+    'bootstrap4',
+    'crispy_forms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

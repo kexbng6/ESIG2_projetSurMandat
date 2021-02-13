@@ -15,9 +15,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .decorators import unauthenticated_user
 from service.models import SGPC_RESERVATION, SGPC_DEVIS#, SGPC_ASSO_SER_DEV, SGPC_SERVICE
-import _datetime
+#import _datetime
 from django.forms import inlineformset_factory
-from .filters import ProduitFilter, CommandeFiltrer, DevisFiltrer, rdvFilter
+#from .filters import ProduitFilter, CommandeFiltrer, DevisFiltrer, rdvFilter
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse

@@ -1,4 +1,4 @@
-import django_filters
+#import django_filters
 
 from .models import SGPC_PRODUIT, SGPC_MARQUE, SGPC_CATEGORIE, SGPC_COMMANDE
 
