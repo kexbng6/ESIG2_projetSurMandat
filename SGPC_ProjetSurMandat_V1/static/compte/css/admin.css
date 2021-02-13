@@ -1,0 +1,58 @@
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Calibri, sans-serif;
+}
+
+.container {
+    margin-top: 60px;
+}
+
+.btn-link:hover {
+    color: #DEC79E;
+    text-decoration: none;
+}
+
+.btn-link.focus, .btn-link:focus {
+    text-decoration: none;
+}
+
+h2 {
+    padding: 1%;
+    border: darkorange;
+    background-color: #474741;
+    text-align: center;
+    color: antiquewhite;
+}
+
+.btn-block {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+}
+
+ul {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+li {
+    color: black;
+    margin-bottom: 12px;
+
+}
+
+li:hover {
+    color: #DEC79E;
+}
+
+.col-4 {
+    text-align: center;
+}
+
+.container .containerbutton{
+    margin-top: 0px;
+}

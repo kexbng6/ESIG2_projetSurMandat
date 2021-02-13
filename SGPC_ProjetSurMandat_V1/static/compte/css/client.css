@@ -1,0 +1,18 @@
+*{
+    font-family: Bahnschrift;
+}
+
+.btn-link:hover {
+    color: #DEC79E;
+    text-decoration: none;
+}
+
+.btn-link.focus, .btn-link:focus {
+    text-decoration: none;
+}
+
+.btn-block {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    background-color: #212529;

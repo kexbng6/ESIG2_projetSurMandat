@@ -1,0 +1,45 @@
+*{
+    font-family: Bahnschrift;
+}
+
+table{
+    margin: auto;
+    width: 40%;
+    border: solid 2px #1a1a1a;
+}
+
+#entete{
+    padding: 2%;
+    background-color: moccasin;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#valider{
+    float: right;
+    margin-right: 20%;
+    padding: 1%;
+    background-color: #6DDCBD;
+    color: white;
+    border-radius: 12%;
+}
+
+#annuler{
+    float: left;
+    margin-left: 20%;
+    padding: 1%;
+    background-color: firebrick;
+    color: white;
+    border-radius: 12%;
+}
+
+#titre{
+    font-weight: bold;
+    background-color: lightgrey;
+    border-right: white 2px groove;
+}
+
+.cell{
+    text-align: right;
+}
