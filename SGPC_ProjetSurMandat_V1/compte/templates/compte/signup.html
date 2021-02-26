@@ -17,49 +17,8 @@
             <form action="{% url 'signup' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-6">
-                        {{ form.UTI_NOM|as_crispy_field }}
-                    </div>
-                    <div class="col-6">
-                        {{ form.UTI_PRENOM|as_crispy_field }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        {{ form.UTI_DATENAISSANCE|as_crispy_field }}
-                    </div>
-                    <div class="col-6">
-                        {{ form.UTI_EMAIL|as_crispy_field }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        {{ form.UTI_NUMEROTEL|as_crispy_field }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        {{ form.UTI_NUMERORUE|as_crispy_field }}
-                    </div>
-                    <div class="col-3">
-                        {{ form.UTI_RUE|as_crispy_field }}
-                    </div>
-                    <div class="col-3">
-                        {{ form.UTI_CODEPOSTALE|as_crispy_field }}
-                    </div>
-                    <div class="col-3">
-                        {{ form.UTI_LOCALITE|as_crispy_field }}
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        {{ form.password1|as_crispy_field }}
-                    </div>
-                    <div class="col-6">
-                        {{ form.password2|as_crispy_field }}
+                    <div >
+                        {{ form }}
                     </div>
                 </div>
                 <p>Les mots de passe doivent contenir au minimum 8 caractères</p>
