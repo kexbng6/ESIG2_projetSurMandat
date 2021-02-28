@@ -18,14 +18,19 @@
                 {% csrf_token %}
                 <div class="row">
                     <div >
-                        {{ form }}
+                        {{ form.as_p }}
                     </div>
                 </div>
                 <p>Les mots de passe doivent contenir au minimum 8 caractères</p>
-                <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoire</p>
+                <p>Les champs comprenant un <span class="asteriskField">*</span>  sont obligatoires</p>
                 <input type="submit" class="btn btn-primary" value="S'inscrire">
             </form>
         </div>
     </div>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="{% static 'compte/js/script_ajax_WEBA.js' %}"></script>
 </body>
 </html>

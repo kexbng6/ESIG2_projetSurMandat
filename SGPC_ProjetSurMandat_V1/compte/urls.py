@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'login/',views.loginPage, name="login"),
     url(r'logout/',views.logoutPage, name="logout"),
     url(r'signup/',views.signUpView, name="signup"),
+
+    path('checkMailValid/',views.checkMailValid, name="checkMailValid"),
+
     url(r'admin/',views.adminView, name="admin"),
     url(r'liste_produits/',views.listeProduits, name="liste_produits"),
     url('creerProduit/', views.creerProduit, name="create_produit"),

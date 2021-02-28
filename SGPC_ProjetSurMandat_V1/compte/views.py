@@ -27,6 +27,9 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from datetime import date, datetime
 
+from django.http import JsonResponse
+from django.core.serializers import serialize
+from django.core import serializers
 # Create your views here.
 
 
@@ -49,6 +52,35 @@ def logoutPage(request):
         logout(request)
         return redirect('index')
 
+def checkMailValid(request):
+    # request should be ajax and method should be GET.
+    utilisateurs = SGPC_Utilisateur.objects.all()
+    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
+    if request.is_ajax() and request.method == "GET":
+
+        #request.GET
+        user_email = request.GET.get("id_UTI_EMAIL", None)
+        # check for the nick name in the database.
+
+        if user_email in data and user_email != "":
+        #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
+            # if email found return not valid
+            print(user_email + ' est déjà utilisé, pas évident gars')
+            return JsonResponse({"valid":False}, status = 200)
+        else:
+            # if email not found, then user can create a new profile.
+            print(user_email + ' est une adresse mail en ordre')
+            return JsonResponse({"valid":True}, status = 200)
+
+    return JsonResponse({'data':data}, status = 400)
+
+#https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
+# def checkMailValid(request):
+#     listTest = SGPC_Utilisateur.objects.all()
+#     data = serializers.serialize('json',list(listTest), fields=('UTI_EMAIL'))
+#     return JsonResponse({'data':data})
+## https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
+# #https://stackoverflow.com/questions/7650448/how-to-serialize-django-queryset-values-into-json
 
 def signUpView(request):
     if request.method == 'POST':
@@ -57,7 +89,7 @@ def signUpView(request):
             form.save()
             utilisateurPrenom = form.cleaned_data.get('UTI_PRENOM')
             utilisateurNom = form.cleaned_data.get('UTI_NOM')
-            emailUTI = form.clean_date.get('UTI_EMAIL')
+            emailUTI = form.cleaned_data.get('UTI_EMAIL')
             send_mail('Bienvenue chez SG PERFORMANCES CUSTOMS',
                       'Bonjour,\n \n'
                       'Bienvenue chez SG PERFORMANCES CUSTOMS, vous pouvez maintenant vous connecter sur notre site ! \n \n' +
