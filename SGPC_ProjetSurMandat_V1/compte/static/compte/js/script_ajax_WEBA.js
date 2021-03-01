@@ -61,7 +61,8 @@ function test(){
                     var textAlert = document.createElement('p');
                     textAlert.innerHTML = `
                         <div id="popupMail">
-                            <p style="color: #ea0000;">L'adresse mail '` +  id_UTI_EMAIL.value + `' est déjà utilisée, veuillez en choisir une autre</p>
+                            <p style="color: #ea0000;">L'adresse mail '` +  response["mail"] + `' est déjà utilisée, veuillez en choisir une autre</p>
+                            <p style="color: #00eab3;">suggestion d'email -> ` + response["suggestion"] + `</p>
                         </div>
                     `;
                     var contenu = document.getElementById('id_UTI_EMAIL');

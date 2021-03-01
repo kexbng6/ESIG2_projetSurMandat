@@ -55,7 +55,7 @@ def logoutPage(request):
 def checkMailValid(request):
     # request should be ajax and method should be GET.
     utilisateurs = SGPC_Utilisateur.objects.all()
-    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
+    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL','UTI_PRENOM'))
     if request.is_ajax() and request.method == "GET":
 
         #request.GET
@@ -66,13 +66,13 @@ def checkMailValid(request):
         #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
             # if email found return not valid
             print(user_email + ' est déjà utilisé, pas évident gars')
-            return JsonResponse({"valid":False}, status = 200)
+            return JsonResponse({"valid":False, "suggestion": user_email+"2021", "mail":user_email}, status=200)
         else:
             # if email not found, then user can create a new profile.
             print(user_email + ' est une adresse mail en ordre')
-            return JsonResponse({"valid":True}, status = 200)
+            return JsonResponse({"valid":True}, status=200)
 
-    return JsonResponse({'data':data}, status = 400)
+    return JsonResponse({'data':data}, status=400)
 
 #https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
 # def checkMailValid(request):
