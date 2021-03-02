@@ -46,29 +46,29 @@ function test(){
 
     $("#id_UTI_EMAIL").focusout(function (e) {
         /*e.preventDefault();*/
-        // get the nickname
         var id_UTI_EMAIL = $(this).val();
         // GET AJAX request
         $.ajax({
-            /*type: 'GET',*/
+            //type: 'GET',
             url: " ../checkMailValid/",
+            async: false,
             data: {"id_UTI_EMAIL": id_UTI_EMAIL},
             success: function (response) {
                 console.log(response)
                 // if not valid user, alert the user
                 if(!response["valid"]){
                     var id_UTI_EMAIL = $("#id_UTI_EMAIL");
-                    var textAlert = document.createElement('p');
+                    var textAlert = document.createElement('div');
                     textAlert.innerHTML = `
                         <div id="popupMail">
-                            <p style="color: #ea0000;">L'adresse mail '` +  response["mail"] + `' est déjà utilisée, veuillez en choisir une autre</p>
+                            <p style="color: #ea0000;">L'adresse mail '` + response["mail"] + `' est déjà utilisée, veuillez en choisir une autre</p>
                             <p style="color: #00eab3;">suggestion d'email -> ` + response["suggestion"] + `</p>
                         </div>
                     `;
                     var contenu = document.getElementById('id_UTI_EMAIL');
                     contenu.insertAdjacentElement("afterend", textAlert)
 
-                    id_UTI_EMAIL.focus()
+                    id_UTI_EMAIL.focus();
                 }
                 else{
                     var textExist = document.getElementById('popupMail');
@@ -78,7 +78,11 @@ function test(){
                 }
             },
             error: function (response) {
-                console.log(response)
+                console.log('la requête n\'a pas pu être envoyée');
+                console.log(response);
+            },
+            complete: function (){
+                console.log('appel synchrone')
             }
         })
     })

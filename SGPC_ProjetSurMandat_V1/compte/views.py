@@ -55,13 +55,11 @@ def logoutPage(request):
 def checkMailValid(request):
     # request should be ajax and method should be GET.
     utilisateurs = SGPC_Utilisateur.objects.all()
-    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL','UTI_PRENOM'))
+    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
     if request.is_ajax() and request.method == "GET":
+        user_email = request.GET.get("id_UTI_EMAIL")
 
-        #request.GET
-        user_email = request.GET.get("id_UTI_EMAIL", None)
-        # check for the nick name in the database.
-
+        print(data)
         if user_email in data and user_email != "":
         #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
             # if email found return not valid
