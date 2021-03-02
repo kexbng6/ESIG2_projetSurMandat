@@ -55,6 +55,7 @@ function test(){
             data: {"id_UTI_EMAIL": id_UTI_EMAIL},
             success: function (response) {
                 console.log(response)
+                console.log(response["mail"])
                 // if not valid user, alert the user
                 if(!response["valid"]){
                     var id_UTI_EMAIL = $("#id_UTI_EMAIL");
@@ -81,8 +82,5 @@ function test(){
                 console.log('la requête n\'a pas pu être envoyée');
                 console.log(response);
             },
-            complete: function (){
-                console.log('appel synchrone')
-            }
         })
     })

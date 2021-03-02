@@ -26,6 +26,7 @@ from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from datetime import date, datetime
+import time
 
 from django.http import JsonResponse
 from django.core.serializers import serialize
@@ -58,7 +59,7 @@ def checkMailValid(request):
     data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
     if request.is_ajax() and request.method == "GET":
         user_email = request.GET.get("id_UTI_EMAIL")
-
+        time.sleep(5)
         print(data)
         if user_email in data and user_email != "":
         #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
