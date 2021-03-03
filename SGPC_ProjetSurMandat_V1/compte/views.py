@@ -67,15 +67,14 @@ def checkMailValid(request):
         if user_email in data and user_email != "":
             suggest_num = random.randrange(1,900)
         #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
-            # if email found return not valid
-            print(user_email + ' est déjà utilisé, pas évident gars')
-            return JsonResponse({"valid":False, "suggestion": user_email+str(suggest_num), "mail":user_email}, status=200)
+            # si l'email est déjà utilisé, envoyer valide = false ainsi qu'une suggestion de mail
+            return JsonResponse({"valid":False, "suggestion": str(suggest_num)+user_email, "mail":user_email}, status=200)
         else:
-            # if email not found, then user can create a new profile.
+            # sinon envoyer valide = true
             print(user_email + ' est une adresse mail en ordre')
             return JsonResponse({"valid":True}, status=200)
 
-    return JsonResponse({'data':data}, status=400)
+    return JsonResponse({'data': data}, status=400)
 
 #https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
 # def checkMailValid(request):

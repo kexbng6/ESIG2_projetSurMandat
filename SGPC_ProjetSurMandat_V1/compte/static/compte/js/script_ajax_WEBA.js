@@ -44,31 +44,28 @@ function test(){
     already exists or not.
     */
 
-    $("#id_UTI_EMAIL").focusout(function (e) {
-        /*e.preventDefault();*/
+    $("#id_UTI_EMAIL").focusout(function () {
         var id_UTI_EMAIL = $(this).val();
         $.ajax({
-            //type: 'GET',
             url: " ../checkMailValid/",
             //async: false,
-            data: {"id_UTI_EMAIL": id_UTI_EMAIL},
-            dataType: 'json',
+            data : "id_UTI_EMAIL="+ id_UTI_EMAIL,
             success: function (response){
-                console.log(response)
-                console.log(response["mail"])
+                console.log(response);
+                console.log(response["mail"]);
                 // if not valid user, alert the user
-                if(!response["valid"]){
+                if(!response["valid"]) {
                     var id_UTI_EMAIL = $("#id_UTI_EMAIL");
-                    var textAlert = document.createElement('div');
-                    textAlert.innerHTML = `
-                        <div id="popupMail">
+                    if (document.getElementById('popupMail') == null) {
+                        var div = document.createElement('div');
+                        div.setAttribute('id','popupMail');
+                        var imputEmail = document.getElementById('id_UTI_EMAIL');
+                        imputEmail.insertAdjacentElement("afterend", div);
+                         }
+                        document.getElementById('popupMail').innerHTML = `
                             <p style="color: #ea0000;">L'adresse mail '` + response["mail"] + `' est déjà utilisée, veuillez en choisir une autre</p>
                             <p style="color: #00eab3;">suggestion d'email -> ` + response["suggestion"] + `</p>
-                        </div>
-                    `;
-                    var contenu = document.getElementById('id_UTI_EMAIL');
-                    contenu.insertAdjacentElement("afterend", textAlert)
-
+                        `;
                     id_UTI_EMAIL.focus();
                 }
                 else{
