@@ -47,13 +47,13 @@ function test(){
     $("#id_UTI_EMAIL").focusout(function (e) {
         /*e.preventDefault();*/
         var id_UTI_EMAIL = $(this).val();
-        // GET AJAX request
         $.ajax({
             //type: 'GET',
             url: " ../checkMailValid/",
-            async: false,
+            //async: false,
             data: {"id_UTI_EMAIL": id_UTI_EMAIL},
-            success: function (response) {
+            dataType: 'json',
+            success: function (response){
                 console.log(response)
                 console.log(response["mail"])
                 // if not valid user, alert the user

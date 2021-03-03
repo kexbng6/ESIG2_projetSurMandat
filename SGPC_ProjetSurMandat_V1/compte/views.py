@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from .forms import loginForm, UtilisateurForm, ClientForm, NumeroSuivi
@@ -30,6 +32,7 @@ import time
 
 from django.http import JsonResponse
 from django.core.serializers import serialize
+
 from django.core import serializers
 # Create your views here.
 
@@ -59,13 +62,14 @@ def checkMailValid(request):
     data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
     if request.is_ajax() and request.method == "GET":
         user_email = request.GET.get("id_UTI_EMAIL")
-        time.sleep(5)
+        #time.sleep(2)
         print(data)
         if user_email in data and user_email != "":
+            suggest_num = random.randrange(1,900)
         #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
             # if email found return not valid
             print(user_email + ' est déjà utilisé, pas évident gars')
-            return JsonResponse({"valid":False, "suggestion": user_email+"2021", "mail":user_email}, status=200)
+            return JsonResponse({"valid":False, "suggestion": user_email+str(suggest_num), "mail":user_email}, status=200)
         else:
             # if email not found, then user can create a new profile.
             print(user_email + ' est une adresse mail en ordre')
