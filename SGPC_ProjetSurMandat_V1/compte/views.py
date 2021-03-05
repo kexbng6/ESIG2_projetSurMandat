@@ -57,7 +57,6 @@ def logoutPage(request):
         return redirect('index')
 
 def checkMailValid(request):
-    # request should be ajax and method should be GET.
     utilisateurs = SGPC_Utilisateur.objects.all()
     data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
     if request.is_ajax() and request.method == "GET":
@@ -66,23 +65,17 @@ def checkMailValid(request):
         print(data)
         if user_email in data and user_email != "":
             suggest_num = random.randrange(1,900)
-        #if SGPC_Utilisateur.objects.filter(UTI_EMAIL = user_email).exists():
             # si l'email est déjà utilisé, envoyer valide = false ainsi qu'une suggestion de mail
-            return JsonResponse({"valid":False, "suggestion": str(suggest_num)+user_email, "mail":user_email}, status=200)
+            return JsonResponse({"valid": False, "suggestion": str(suggest_num)+user_email, "mail": user_email}, status=200)
         else:
             # sinon envoyer valide = true
             print(user_email + ' est une adresse mail en ordre')
-            return JsonResponse({"valid":True}, status=200)
+            return JsonResponse({"valid": True}, status=200)
+    return JsonResponse({'data': "Rien a voir ici"}, status=400)
 
-    return JsonResponse({'data': data}, status=400)
-
-#https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
-# def checkMailValid(request):
-#     listTest = SGPC_Utilisateur.objects.all()
-#     data = serializers.serialize('json',list(listTest), fields=('UTI_EMAIL'))
-#     return JsonResponse({'data':data})
+## https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
 ## https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
-# #https://stackoverflow.com/questions/7650448/how-to-serialize-django-queryset-values-into-json
+## https://stackoverflow.com/questions/7650448/how-to-serialize-django-queryset-values-into-json
 
 def signUpView(request):
     if request.method == 'POST':
