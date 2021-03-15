@@ -58,20 +58,17 @@ def logoutPage(request):
         return redirect('index')
 
 def checkMailValid(request):
-    utilisateurs = SGPC_Utilisateur.objects.all()
-    data = serialize('json', list(utilisateurs), fields=('UTI_EMAIL'))
     if request.is_ajax() and request.method == "GET":
         user_email = request.GET.get("id_UTI_EMAIL")
-        #time.sleep(2)
-        print(data)
-        if user_email in data and user_email != "":
-            suggest_num = random.randrange(1,900)
-            # si l'email est déjà utilisé, envoyer valide = false ainsi qu'une suggestion de mail
-            return JsonResponse({"valid": False, "suggestion": str(suggest_num)+user_email, "mail": user_email}, status=200)
-        else:
-            # sinon envoyer valide = true
+        utilisateur = SGPC_Utilisateur.objects.filter(UTI_EMAIL=user_email)
+        if not utilisateur: #https://stackoverflow.com/questions/53513/how-do-i-check-if-a-list-is-empty
+            # si l'email n'est pas déjà utilisé, envoyer valide = true
             print(user_email + ' est une adresse mail en ordre')
             return JsonResponse({"valid": True}, status=200)
+        else:
+            suggest_num = random.randrange(1, 900)
+            # sinon  envoyer valide = false ainsi qu'une suggestion de mail
+            return JsonResponse({"valid": False, "suggestion": str(suggest_num) + user_email, "mail": user_email}, status=200)
     return JsonResponse({'data': "Rien a voir ici"}, status=400)
 
 ## https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
