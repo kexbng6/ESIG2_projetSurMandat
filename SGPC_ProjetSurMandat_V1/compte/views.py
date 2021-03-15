@@ -2,10 +2,11 @@ import random
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import loginForm, UtilisateurForm, ClientForm, NumeroSuivi
 from django.contrib.auth.forms import UserChangeForm
 from . import forms
-from activatable_model.models import BaseActivatableModel
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -36,7 +37,7 @@ from django.core.serializers import serialize
 from django.core import serializers
 # Create your views here.
 
-
+@unauthenticated_user
 def loginPage(request):
     if request.method == 'POST':
         form = loginForm(data=request.POST)
@@ -99,7 +100,7 @@ def signUpView(request):
         form = UtilisateurForm()
     return render(request, 'compte/signup.html', {'form': form})
 
-@login_required(login_url="/login/") #inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
+@login_required(login_url="login") #inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 @user_passes_test(lambda u: u.UTI_is_admin) #inspirer de https://stackoverflow.com/questions/21649439/redirecting-user-passes-testlambda-u-u-is-superuser-if-not-a-superuser-to-an
 def adminView(request):
     aujourdhui = _datetime.date.today() #Récupération de la date du jour
@@ -214,22 +215,27 @@ def modifierProduit(request, pk):
     }
     return render(request, 'compte/modifierProduit.html', context)
 
-@login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
+@csrf_exempt
+@login_required(login_url="login")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 @user_passes_test(lambda u: u.UTI_is_admin) #inspirer de https://stackoverflow.com/questions/21649439/redirecting-user-passes-testlambda-u-u-is-superuser-if-not-a-superuser-to-an
 def supprimerProduit(request, pk):
-    produit = SGPC_PRODUIT.objects.get(id=pk) # Récupération du produit ayant le même id que que le paramètre "pk"
-    form = forms.supprimerProduit(instance=produit) # Récupération du formulaire de suppression de produit avec les informations du produit
+    produit = SGPC_PRODUIT.objects.get(id=pk)
+    form = forms.supprimerProduit(instance=produit)
     if request.method == 'POST':
         form = forms.supprimerProduit(request.POST, instance=produit)
         produit.is_active = False # Changement de l'attribut "is_active" de "True" à "False", il n'apparaît plus dans la boutique mais est présent dans la liste des produits pour l'administrateur.
         if form.is_valid():
-            form.save() # Enregistrement des données dans la base de données.
+            form.save()
             return redirect('liste_produits')
     context = {
         'form': form,
         'produit': produit,
     }
     return render(request, 'compte/supprimerProduit.html', context)
+
+def secuWEBA(request):
+    rand = random.randrange(1,16)
+    return render(request, 'compte/secuWEBA.html', {'random':rand})
 
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
 def detailRDV(request, pk):

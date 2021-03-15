@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'signup/',views.signUpView, name="signup"),
 
     path('checkMailValid/',views.checkMailValid, name="checkMailValid"),
+    path('secuWEBA/',views.secuWEBA, name='secuWEBA'),
 
     url(r'admin/',views.adminView, name="admin"),
     url(r'liste_produits/',views.listeProduits, name="liste_produits"),

@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, date_of_birth, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -15,7 +15,8 @@ class MyUserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            email=self.normalize_email(email),
+            UTI_EMAIL=self.normalize_email(email),
+            UTI_DATENAISSANCE= date_of_birth,
         )
 
         user.set_password(password)
@@ -47,8 +48,6 @@ class SGPC_Utilisateur(AbstractBaseUser):
     UTI_DATENAISSANCE = models.DateField(auto_now_add=False)
     UTI_NUMEROTEL = models.CharField(max_length=20, unique=True)
     UTI_RUE = models.CharField(max_length=60)
-    UTI_NUMERORUE = models.PositiveIntegerField(null=False)
-    UTI_CODEPOSTALE = models.PositiveIntegerField(null=False)
     UTI_LOCALITE = models.CharField(max_length=30, unique=False)
     UTI_is_deleted = models.BooleanField(default=False)
     UTI_is_active = models.BooleanField(default=True)

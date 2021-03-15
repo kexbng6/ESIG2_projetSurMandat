@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from activatable_model.models import BaseActivatableModel
 from cart.cart import Cart
 from catalogue.models import SGPC_PRODUIT, SGPC_COMMANDE, SGPC_ASSO_COM_PRO, SGPC_PARAMETRES, SGPC_MARQUE, SGPC_CATEGORIE
 from service.models import SGPC_RESERVATION#, SGPC_ASSO_SER_DEV
