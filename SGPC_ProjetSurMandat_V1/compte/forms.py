@@ -25,8 +25,8 @@ class UtilisateurForm(UserCreationForm):
 
     class Meta:
         model = SGPC_Utilisateur
-        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_NUMERORUE', 'UTI_CODEPOSTALE', 'UTI_LOCALITE']
-        labels = {"UTI_PRENOM": "Prénom", "UTI_NOM" : "Nom" , "UTI_EMAIL":"E-mail","UTI_DATENAISSANCE":"Date de naissance","UTI_NUMEROTEL":"Numéro de téléphone","UTI_RUE":"Rue","UTI_NUMERORUE":"Numéro de rue","UTI_CODEPOSTALE":"Code postale","UTI_LOCALITE":"Localité"}
+        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_LOCALITE']
+        labels = {"UTI_PRENOM": "Prénom", "UTI_NOM" : "Nom" , "UTI_EMAIL":"E-mail","UTI_DATENAISSANCE":"Date de naissance","UTI_NUMEROTEL":"Numéro de téléphone","UTI_RUE":"Rue","UTI_LOCALITE":"Localité"}
 
         widgets = {'UTI_DATENAISSANCE': forms.SelectDateWidget(years=YEARS)}
 
@@ -39,10 +39,10 @@ class UtilisateurForm(UserCreationForm):
 class ClientForm(forms.ModelForm):
     class Meta:
         model = SGPC_Utilisateur
-        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_NUMERORUE', 'UTI_CODEPOSTALE', 'UTI_LOCALITE']
+        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_LOCALITE']
         labels = {"UTI_PRENOM": "Prénom", "UTI_NOM": "Nom", "UTI_EMAIL": "E-mail",
                   "UTI_DATENAISSANCE": "Date de naissance", "UTI_NUMEROTEL": "Numéro de téléphone", "UTI_RUE": "Rue",
-                  "UTI_NUMERORUE": "Numéro de rue", "UTI_CODEPOSTALE": "Code postale", "UTI_LOCALITE": "Localité"}
+                   "UTI_LOCALITE": "Localité"}
         widgets = {"UTI_DATENAISSANCE": DateInput()}
 
 class creerProduit(forms.ModelForm):
@@ -75,10 +75,10 @@ class reactiverProduit(forms.ModelForm):
 class modifierDonnes(UserChangeForm):
     class Meta:
         model = SGPC_Utilisateur
-        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_NUMERORUE', 'UTI_CODEPOSTALE', 'UTI_LOCALITE', 'password']
+        fields = ['UTI_PRENOM', 'UTI_NOM', 'UTI_EMAIL','UTI_DATENAISSANCE', 'UTI_NUMEROTEL', 'UTI_RUE', 'UTI_LOCALITE', 'password']
         labels = {"UTI_PRENOM": "Prénom", "UTI_NOM": "Nom", "UTI_EMAIL": "E-mail", "UTI_DATENAISSANCE": "Date de naissance",
-                  "UTI_NUMERORUE": "Numéro de rue", "UTI_NUMEROTEL": "Numéro de téléphone", "UTI_RUE": "Rue",
-                  "UTI_CODEPOSTALE": "Code postal", "UTI_LOCALITE": "Localité"}
+                  "UTI_NUMEROTEL": "Numéro de téléphone", "UTI_RUE": "Rue",
+                   "UTI_LOCALITE": "Localité"}
         exclude = ['password']
 
 

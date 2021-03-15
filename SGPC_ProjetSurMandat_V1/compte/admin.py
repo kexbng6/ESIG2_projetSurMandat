@@ -45,7 +45,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = SGPC_Utilisateur
-        fields = ('UTI_PRENOM','UTI_NOM','UTI_DATENAISSANCE','UTI_RUE','UTI_NUMERORUE','UTI_CODEPOSTALE','UTI_LOCALITE', 'UTI_EMAIL', 'UTI_is_active', 'UTI_is_admin')
+        fields = ('UTI_PRENOM','UTI_NOM','UTI_DATENAISSANCE','UTI_RUE','UTI_LOCALITE', 'UTI_EMAIL', 'UTI_is_active', 'UTI_is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
