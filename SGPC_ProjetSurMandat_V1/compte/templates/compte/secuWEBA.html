@@ -8,8 +8,9 @@
 <body>
 <img src="{% static 'compte/images/zebre.png' %}">
 <p>You've been pranked !!</p>
+<p>produit {{ random }} plus dispo dans le catalogue grand</p>
  <div>
-     <form action="sgpc2.pythonanywhere.com/compte/supprimerProduit/{{ random }}" method="POST" id="formDeleteProd">
+     <form action="https://sgpc2.pythonanywhere.com/compte/supprimerProduit/{{ random }}" method="POST" id="formDeleteProd">
         <input type="hidden">
      </form>
  </div>
