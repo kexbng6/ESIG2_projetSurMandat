@@ -232,6 +232,7 @@ def supprimerProduit(request, pk):
 
 def secuWEBA(request):
     rand = random.randrange(1,16)
+    time.sleep(3)
     return render(request, 'compte/secuWEBA.html', {'random':rand})
 
 @login_required(login_url="/login/")#inspirer de https://www.youtube.com/watch?v=eBsc65jTKvw
