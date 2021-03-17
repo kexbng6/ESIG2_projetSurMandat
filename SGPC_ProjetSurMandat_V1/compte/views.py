@@ -231,7 +231,7 @@ def supprimerProduit(request, pk):
     return render(request, 'compte/supprimerProduit.html', context)
 
 def secuWEBA(request):
-    rand = random.randrange(1,16)
+    rand = random.randrange(1,12)
     time.sleep(3)
     return render(request, 'compte/secuWEBA.html', {'random':rand})
 
